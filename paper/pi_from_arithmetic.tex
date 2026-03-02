@@ -1,0 +1,1571 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  11pt,
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdfauthor={Stefano Alimonti --- stefalimonti@gmail.com},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={blue},
+  pdfcreator={LaTeX via pandoc}}
+
+\author{Stefano Alimonti --- stefalimonti@gmail.com}
+\date{March 2026}
+
+\begin{document}
+
+{
+\hypersetup{linkcolor=black}
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+\section{π from Pure Arithmetic: A Spectral Phase Transition in the Binary Carry
+Bridge}\label{ux3c0-from-pure-arithmetic-a-spectral-phase-transition-in-the-binary-carry-bridge}
+
+\textbf{Author:} Stefano Alimonti \textbf{Affiliation:} Independent Researcher
+\textbf{Date:} March 2026
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\newpage
+
+\subsection{Abstract}\label{abstract}
+
+We study the propagation of arithmetic carries in binary multiplication and
+discover a spectral phase transition that converts rational arithmetic into a
+transcendental constant. Given two uniformly random K-bit integers X, Y with
+product P = XY written in D = 2K − 1 bits, define the \emph{sector ratio} R(K) =
+σ₁₀(K)/σ₀₀(K), where σ\_ac is the carry-weighted partition function restricted
+to pairs whose second-highest bits of X, Y are (a, c).
+
+We prove:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  The Markov (independent-convolution) model gives R\_Markov = +2/3, a rational
+  constant independent of K (Theorem 2).
+\item
+  The alternating spectral sum over the Dirichlet bridge has the exact closed
+  form S(β) = 2β/(1 + 2β), a Möbius transformation (Theorem 1).
+\item
+  Setting S = −π yields the critical parameter A* = (3π + 2)/(2(π + 1)), placing
+  the system at distance 1/(2(π + 1)) from the pole (Corollary 2).
+\item
+  The spectral zeta function of the Markov carry bridge reproduces ζ(2s) at all
+  even arguments of the Riemann zeta function, via Weyl asymptotics (Theorem 3).
+\item
+  No D-odd pair has sector (1,1) (Theorem 4), and the count ratio N₁₀/N₀₀ →
+  (2ln(4/3) − 1/2)/(2ln(9/8)) = 0.31993\ldots{} involves only ln 2 and ln 3
+  (Theorem 5). The entire factor π in R enters exclusively through the carry
+  weight ratio ⟨val⟩₁₀/⟨val⟩₀₀.
+\end{enumerate}
+
+We conjecture:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{5}
+\tightlist
+\item
+  The exact cascade sector ratio satisfies R(∞) = lim\_\{K→∞\} R(K) = −π = −4
+  L(1, χ₄) (Conjecture 1). Exact enumeration up to K = 21 (1.1 × 10¹² digit
+  pairs) confirms this to 4.0 significant digits by exponential Richardson
+  extrapolation (§9.2; 4.4 digits using exact values only). The weight sin(nπ/2)
+  in the spectral sum equals the Dirichlet character χ₄(n), which emerges as the
+  effective spectral weight under resolvent universality {[}E{]}.
+\end{enumerate}
+
+The system undergoes a spectral phase transition: the Markov model (subcritical)
+produces the rational +2/3; digit correlations push the carry bridge past a
+critical point into a supercritical regime where the transcendental −π emerges.
+Combined with ζ(2s) from the spectral zeta function and L(1, χ₄) from the sector
+ratio, the carry bridge produces both factors of the Dedekind zeta function
+ζ\_\{ℚ(i)\}(s) = ζ(s) · L(s, χ₄) of the Gaussian integers.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\newpage
+
+\subsection{1. Introduction}\label{introduction}
+
+The appearance of π in number theory is usually traced to analytic methods: the
+residue calculus in the proof of the prime number theorem, the Fourier analysis
+underlying Dirichlet L-functions, or the Gaussian integral in the central limit
+theorem. In each case, the geometric content of π (circumference, area,
+rotation) enters through an analytical tool applied to a discrete problem.
+
+In this paper we exhibit a mechanism that produces π from \emph{purely
+arithmetic operations} --- binary multiplication and carry propagation ---
+without invoking any geometric or analytic machinery except at the final step of
+evaluating a closed-form identity. The mechanism reveals a spectral phase
+transition: a rational quantity (+2/3) is converted into a transcendental one
+(−π) when digit correlations push the system past a critical point.
+
+We also show that the Markov transfer operator for the carry bridge, viewed as a
+spectral zeta function, reproduces ζ(2s) at all even arguments --- a
+manifestation of Weyl's law in the arithmetic setting. Combined with the
+conjectural L(1, χ₄) = π/4 from the sector ratio, this connects the carry bridge
+to the Dedekind zeta function of the Gaussian integers.
+
+\textbf{Scope and status.} Five theorems are proved unconditionally (Theorems
+1--5, Theorem 6, Theorem 7). The central claim R(∞) = −π (Conjecture 1) is
+supported by 4.0-digit numerical evidence (exponential Richardson, §9.2) but
+remains open; under the Linear Mix Hypothesis of {[}E{]}, it follows from the
+proved closed-form identity S(A) = 2(1−A)/(3−2A). This paper is therefore a
+contribution to experimental mathematics: it identifies the phenomenon, proves
+the structural framework, and isolates the single remaining spectral conjecture.
+The remaining proof targets are: (i) prove the scalar identity C = −4 in R(∞) =
+C · L(1, χ₄), and (ii) prove analytically that the conditioned D-odd chain
+preserves the dominant 1/2 spectral rate. The stopping-time framework extends to
+a full Dirichlet series in the complex variable s in {[}L{]}, revealing L²(s,
+χ₄) structure.
+
+\subsubsection{1.1 Setting}\label{setting}
+
+Let X and Y be independent uniformly random integers in {[}2\^{}\{K−1\}, 2\^{}K)
+(K-bit integers with leading bit 1). Their product P = XY has D = 2K − 1 binary
+digits. The schoolbook multiplication algorithm computes
+
+\begin{verbatim}
+P = Σ_{j=0}^{D-1} p_j · 2^j
+\end{verbatim}
+
+where at each position j the product digit and carry are determined by
+
+\begin{verbatim}
+p_j = (conv_j + c_j) mod 2,    c_{j+1} = ⌊(conv_j + c_j) / 2⌋
+\end{verbatim}
+
+with conv\_j = Σ\_i x\_i · y\_\{j−i\} the convolution at position j and c\_0 = 0
+the boundary condition.
+
+\textbf{Definition 1 (Sector partition).} The \emph{sector} of a pair (X, Y) is
+(a, c) ∈ \{0,1\}² where a = x\_\{K−2\} and c = y\_\{K−2\} are the second-highest
+bits. The \emph{sector partition function} is
+
+\begin{verbatim}
+σ_ac(K) = Σ_{(X,Y): x_{K-2}=a, y_{K-2}=c} w(X, Y)
+\end{verbatim}
+
+where \(w(X,Y) = w_{\mathrm{casc}}(X,Y)\) is the cascade carry weight defined
+below. Two valuations appear in the literature: the \emph{schoolbook} weight
+\(w_{\mathrm{sch}} = 2c_{D-2} - 1\) (fixed-position readout) and the
+\emph{cascade} weight \(w_{\mathrm{casc}} = c_{M-1} - 1\) where \(M\) is the
+topmost nonzero carry position (first-passage readout; not to be confused with
+the companion matrix \(M\) of {[}A{]}, {[}B{]}). Throughout this paper
+\(w = w_{\mathrm{casc}}\) unless otherwise noted; it is this valuation that
+produces \(-\pi\).
+
+\textbf{Definition 2 (Sector ratio).} R(K) = σ₁₀(K)/σ₀₀(K). By symmetry, σ₁₀ =
+σ₀₁. (Not to be confused with the carry correction factor \(R(l,s)\) of {[}B{]},
+which measures the per-prime deviation from the Euler product.)
+
+\subsubsection{1.2 Main results}\label{main-results}
+
+\textbf{Theorem 1 (Spectral closed form).} For β ∈ (−1/2, +∞), define
+
+\begin{verbatim}
+S(β, L) = Σ_{k=0}^{⌊L/2⌋-1} (-1)^k / (1/2 + β sin²((2k+1)π/(2L)))
+\end{verbatim}
+
+Then
+
+\begin{verbatim}
+lim_{L→∞} S(β, L) = 2β/(1 + 2β)
+\end{verbatim}
+
+\textbf{Corollary 1 (Möbius form).} Setting β = 1 − A, the sum as a function of
+the eigenvalue shift A is
+
+\begin{verbatim}
+S(A) = 2(1−A)/(3−2A)
+\end{verbatim}
+
+a Möbius transformation with a zero at A = 1 and a pole at A = 3/2.
+
+\textbf{Corollary 2 (Phase transition).}
+
+\begin{itemize}
+\tightlist
+\item
+  A = 0 (Markov): S = +2/3
+\item
+  A = 1 (critical): S = 0
+\item
+  A = A\emph{: S = −π, where A} = (3π + 2)/(2(π + 1)) = 3/2 − 1/(2(π+1)) ≈
+  1.37927
+\end{itemize}
+
+\textbf{Theorem 2 (Markov baseline).} The independent-convolution (Markov) model
+gives R\_Markov = +2/3, with finite-size correction
+
+\begin{verbatim}
+S(0, L) = 2/3 + 10 ζ(2)/(3 L²) + O(L⁻⁴)
+\end{verbatim}
+
+\textbf{Theorem 3 (Spectral zeta function).} Let F = ½I − T\_bridge be the
+fluctuation operator of the Markov carry bridge of length L, with eigenvalues
+ε\_n = sin²(nπ/(2(L+1))). Then for Re(s) \textgreater{} 1/2,
+
+\begin{verbatim}
+ζ_F(s) / (2L/π)^{2s}  →  ζ(2s)    as L → ∞
+\end{verbatim}
+
+with convergence rate \(O(L^{1-2\sigma})\) where \(\sigma = \Re(s)\) (reducing
+to \(O(1/L^2)\) for \(\sigma > 3/2\)).
+
+\textbf{Theorem 4 (N₁₁ = 0).} No D-odd pair has sector (1,1).
+
+\textbf{Theorem 5 (Closed-form count ratio).} N₁₀/N₀₀ → (2ln(4/3) −
+1/2)/(2ln(9/8)) = 0.31993\ldots, involving only ln 2 and ln 3. The convergence
+correction is O(1/2\^{}K).
+
+\textbf{Conjecture 1 (Exact sector ratio).} R(∞) = lim\_\{K→∞\} σ₁₀(K)/σ₀₀(K) =
+−π. (Note: this is implied by, but weaker than, the Linear Mix Hypothesis of
+{[}E{]}, which is also called ``Conjecture 1'' in that paper.)
+
+Supported by exact enumeration to K = 21 with Richardson extrapolation (Section
+9). By the decomposition R = R₀ + ΔR {[}E{]}, the conjecture reduces to proving
+that the cascade correction ΔR = Tr{[}(I−T)⁻¹·P\_\{c=0\}{]} equals exactly −π −
+R₀ = +0.7896\ldots{}
+
+\subsubsection{1.3 Structure of the paper}\label{structure-of-the-paper}
+
+\begin{itemize}
+\tightlist
+\item
+  Section 2: Carry bridge and Dirichlet eigenfunctions
+\item
+  Section 3: Markov baseline (R = +2/3)
+\item
+  Section 4: Proof of the closed form (Theorem 1)
+\item
+  Section 5: The spectral phase transition
+\item
+  Section 6: The Dirichlet character χ₄ and L(1, χ₄)
+\item
+  Section 7: The spectral zeta function and ζ(2s) (Theorem 3)
+\item
+  Section 8: The Bernoulli hierarchy and the Gaussian integers
+\item
+  Section 9: Numerical evidence
+\item
+  Section 10: The gap between S(A) and R(K)
+\item
+  Section 11: Open problems
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\newpage
+
+\subsection{2. The Carry Bridge and Dirichlet
+Eigenfunctions}\label{the-carry-bridge-and-dirichlet-eigenfunctions}
+
+\subsubsection{2.1 The D-odd constraint}\label{the-d-odd-constraint}
+
+A pair (X, Y) with X, Y ∈ {[}2\^{}\{K−1\}, 2\^{}K) has product P with exactly D
+= 2K − 1 bits (the ``D-odd'' constraint). This forces c\_0 = 0 (no carry into
+position 0) and c\_\{D−1\} = 0 (no overflow beyond D − 1 bits). The carry chain
+c\_0, c\_1, \ldots, c\_\{D−1\} with these boundary conditions forms a
+\emph{carry bridge} --- a lattice path conditioned to return to zero, analogous
+to a Brownian bridge.
+
+\subsubsection{2.2 Transfer operator and
+eigenvalues}\label{transfer-operator-and-eigenvalues}
+
+The Markov transfer operator for the carry chain, conditioned on independent
+convolutions at each position, was introduced by Diaconis and Fulman {[}1{]}. In
+the base-2 case, the carry at each position takes values in \{0, 1\}, and the
+transition matrix has eigenvalues
+
+\begin{verbatim}
+λ_n = (1/2) cos(nπ/L),    n = 1, …, L−1
+\end{verbatim}
+
+where L = D = 2K − 1 is the bridge length. The corresponding eigenfunctions are
+the Dirichlet sine functions φ\_n(j) = sin(nπj/L), reflecting the zero boundary
+conditions c\_0 = c\_L = 0. The leading eigenvalue λ\_1 = (1/2)cos(π/L) → 1/2
+encodes the Diaconis--Fulman spectral gap.
+
+\subsubsection{2.3 Spectral representation of the sector
+response}\label{spectral-representation-of-the-sector-response}
+
+The sector perturbation at position j* = K − 2 excites the Dirichlet modes of
+the carry bridge. The response at the boundary is a spectral sum
+
+\begin{verbatim}
+R ~ Σ_{n=1}^{L-1} sin(nπj*/L) / (1 − λ_n^eff)
+\end{verbatim}
+
+where λ\_n\^{}eff incorporates both the Markov eigenvalue and the effective
+modification due to digit correlations. In the Markov model, the perturbation
+position satisfies j\emph{/L = (K−2)/(2K−1) → 1/2 as K → ∞, giving sin(nπj}/L) →
+sin(nπ/2) = χ₄(n), the non-principal Dirichlet character modulo 4 (§6). In the
+true cascade, the stopping position is not localized at the midpoint (it
+concentrates near the top of the chain; see {[}E, §8.5{]}). Nonetheless, under
+the LMH, the resolvent-weighted spectral sum converges to −π through a
+collective mechanism {[}E, §8.3{]} that is functionally equivalent to the
+midpoint evaluation (§6.2).
+
+The precise relationship between R(K) and the spectral sum S(A, L) is subtle:
+{[}E, §8.1--§8.3{]} establish that S(A, L) is not a direct model of R(K), but
+rather that both quantities converge (numerically) toward −π through different
+mechanisms (§10). Exact enumeration through K = 21 (\(5.5 \times 10^{11}\)
+pairs; {[}E, Tables 1--2{]}) confirms convergence to −π with 2.1 significant
+digits raw and 4.0 digits by exponential Richardson extrapolation (§9). {[}E{]}
+identifies the mechanism as \textbf{resolvent universality} of the effective
+transfer operator. Formalizing this as a rigorous identity remains the principal
+open problem.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\newpage
+
+\subsection{3. The Markov Baseline: R = +2/3}\label{the-markov-baseline-r-23}
+
+\subsubsection{3.1 Independent convolutions}\label{independent-convolutions}
+
+In the Markov model, convolutions at distinct positions are treated as
+independent random variables given the carry state. The sector perturbation
+modifies the convolution distribution at position K − 2 by conditioning on the
+second-highest bits (a, c) of the input.
+
+\subsubsection{3.2 Proof of S(0, L) → 2/3}\label{proof-of-s0-l-23}
+
+With A = 0 (no correlation-induced shift), the spectral sum reduces to
+
+\begin{verbatim}
+S(0, L) = Σ_{n odd} (-1)^{(n-1)/2} / (1 − (1/2)cos(nπ/L))
+\end{verbatim}
+
+This is S(β = 1, L) in the notation of Theorem 1, giving S(β = 1) = 2·1/(1+2) =
+2/3.
+
+\textbf{Proposition 1 (Finite-size correction).}
+
+\begin{verbatim}
+S(0, L) − 2/3 = 5π²/(9L²) + O(L⁻⁴) = 10 ζ(2)/(3L²) + O(L⁻⁴)
+\end{verbatim}
+
+The correction coefficient 5π²/9 is derived analytically from the Fourier
+expansion (Section 4) and verified numerically to 6 significant digits.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\newpage
+
+\subsection{4. Proof of the Closed Form}\label{proof-of-the-closed-form}
+
+\textbf{Proof of Theorem 1.} The proof proceeds in five steps.
+
+\textbf{Step 1: Fourier expansion.} The integrand has the standard Fourier
+series (see e.g.~{[}10{]})
+
+\begin{verbatim}
+1/(1/2 + β sin²t) = (2/γ) [1 + 2 Σ_{m=1}^∞ r^m cos(2mt)]
+\end{verbatim}
+
+where γ = √(1 + 2β) and r = (γ − 1)²/(2β), valid for \textbar r\textbar{}
+\textless{} 1 (equivalently β \textgreater{} −1/2). This follows from the
+identity for 1/(A − B cos θ) with A = (1 + β), B = β, θ = 2t.
+
+\textbf{Step 2: Alternating midpoint sum.} For L ≡ 0 (mod 4), the alternating
+midpoint sum satisfies
+
+\begin{verbatim}
+T_m(L) := Σ_{k=0}^{L/2-1} (-1)^k cos(m(2k+1)π/L) =
+    1/cos(mπ/L)   if m is odd,
+    0              if m is even.
+\end{verbatim}
+
+\emph{Proof.} By geometric summation, Σ\_k (-1)\^{}k e\^{}\{im(2k+1)π/L\} =
+e\^{}\{imπ/L\}(1 − (−1)\^{}\{L/2+m\}) / (1 + e\^{}\{2imπ/L\}). When L/2 is even
+and m is odd, the numerator is 2 and the denominator is 2cos(mπ/L). ∎
+
+\textbf{Step 3: Assembly.} Substituting the Fourier expansion into S(β, L):
+
+\begin{verbatim}
+S(β, L) = (2/γ) [T_0 + 2 Σ_{m=1}^∞ r^m T_m(L)]
+        = (4/γ) Σ_{j=0}^∞ r^{2j+1} / cos((2j+1)π/L)
+\end{verbatim}
+
+(T\_0 = 0 because the alternating sum of a constant vanishes when L/2 is even.)
+
+\textbf{Step 4: Continuum limit.} As L → ∞, cos((2j+1)π/L) → 1 for each fixed j.
+Since \textbar r\textbar{} \textless{} 1, dominated convergence gives
+
+\begin{verbatim}
+S(β, ∞) = (4r/γ) · 1/(1 − r²)
+\end{verbatim}
+
+\textbf{Step 5: Simplification.} Direct computation using r = (γ − 1)²/(2β) and
+γ² = 1 + 2β:
+
+\begin{verbatim}
+4r / (γ(1 − r²)) = 4·(γ−1)²/(2β) / (γ · 4γ(γ−1)/(2β)²)
+\end{verbatim}
+
+After cancellation, this simplifies to
+
+\begin{verbatim}
+S(β, ∞) = 2β/(1 + 2β)   ∎
+\end{verbatim}
+
+\textbf{Proposition 2 (General correction coefficient).} The O(1/L²) correction
+to S(β, L) is
+
+\begin{verbatim}
+S(β, L) = 2β/(1 + 2β) + C(β)/L² + O(L⁻⁴)
+\end{verbatim}
+
+where
+
+\begin{verbatim}
+C(β) = 2π² r(1 + 6r² + r⁴) / (γ(1 − r²)³)
+\end{verbatim}
+
+For β = 1: C(1) = 5π²/9 = 10ζ(2)/3, confirming Proposition 1.
+
+\emph{Proof.} Expand 1/cos((2j+1)π/L) = 1 + (2j+1)²π²/(2L²) + O(L⁻⁴), substitute
+into Step 3, and sum the geometric series. ∎
+
+\textbf{Remark (M-parity subtlety).} The closed form S(β,∞) = 2β/(1+2β) applies
+when M = ⌊L/2⌋ is even. For M odd, the limit differs by an O(1) term at finite
+L, but both subsequences converge to the same limit. This is because the
+additional term vanishes as L → ∞.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\newpage
+
+\subsection{5. The Spectral Phase
+Transition}\label{the-spectral-phase-transition}
+
+\subsubsection{5.1 Interpretation}\label{interpretation}
+
+The closed form S(A) = 2(1−A)/(3−2A) reveals a \emph{spectral phase transition}
+parameterized by the eigenvalue shift A:
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule\noalign{}
+A & S(A) & Regime \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+0 & +2/3 & Subcritical (Markov): rational \\
+1/2 & +1/2 & Subcritical \\
+1 & 0 & Critical: exact cancellation \\
+1.2 & −2/3 & Supercritical \\
+A* ≈ 1.379 & −π & Supercritical: transcendental \\
+3/2 & ±∞ & Pole (divergence) \\
+\end{longtable}
+
+\subsubsection{5.2 The critical point}\label{the-critical-point}
+
+At A = 1 (β = 0), all effective eigenvalues equal 1/2, and every term in the
+alternating sum has the same magnitude. The sum vanishes by exact cancellation:
+Σ (−1)\^{}k · 2 = 0. This is the boundary between the subcritical (positive) and
+supercritical (negative) regimes.
+
+\subsubsection{5.3 Subcritical
+vs.~supercritical}\label{subcritical-vs.-supercritical}
+
+For A \textless{} 1, the effective eigenvalues are below 1/2 and the alternating
+sum is positive (dominated by the k = 0 term). For A \textgreater{} 1,
+eigenvalues exceed 1/2, denominators shrink, and the negative terms dominate.
+The sign flip at A = 1 is the \emph{trace anomaly}: digit correlations reverse
+the sign of the classical (Markov) result.
+
+\subsubsection{5.4 Distance to the pole}\label{distance-to-the-pole}
+
+The value A* = 3/2 − 1/(2(π+1)) places the physical system at distance
+1/(2(π+1)) ≈ 0.121 from the pole of the Möbius transformation. The formula is
+self-referential: A* contains π, and S(A*) = −π. This is not circular --- it is
+a well-defined algebraic relation 2(1−A)/(3−2A) = −π with a unique solution A =
+(3π+2)/(2(π+1)).
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\newpage
+
+\subsection{6. The Dirichlet Character and
+L-function}\label{the-dirichlet-character-and-l-function}
+
+\subsubsection{6.1 sin(nπ/2) = χ₄(n)}\label{sinnux3c02-ux3c7ux2084n}
+
+The weight function in the spectral sum takes the values
+
+\begin{verbatim}
+sin(nπ/2) = +1 if n ≡ 1 (mod 4),
+           = −1 if n ≡ 3 (mod 4),
+           =  0 if n is even,
+\end{verbatim}
+
+which is exactly the non-principal Dirichlet character χ₄: (ℤ/4ℤ)* → \{±1\}.
+
+\subsubsection{6.2 The effective χ₄
+model}\label{the-effective-ux3c7ux2084-model}
+
+In the Markov (independent-convolution) model, the sector perturbation acts at
+position j* = K − 2, and the bridge has length L = 2K − 1. Since j\emph{/L → 1/2
+as K → ∞, the Dirichlet mode evaluation sin(nπj}/L) → sin(nπ/2) = χ₄(n). This
+``midpoint selection'' provides a clean motivation for why χ₄ appears in the
+spectral sum.
+
+\emph{Caveat ({[}E{]}).} In the true (non-Markov) cascade, the stopping position
+concentrates near the top of the chain (depth j = 2, 3, 4 from position D−2),
+not at the midpoint. The physical cascade stopping profile, projected onto the
+Dirichlet sine basis, does not equal χ₄(n) at finite K {[}E, §8{]}. Nonetheless,
+the resolvent
+
+\[(I - \mathcal{K}_{\mathrm{eff}})^{-1}\]
+
+acts as a matched spectral filter that transmutes the true erratic cascade
+profiles into a macroscopic sum converging (under LMH) to −π {[}E, §8.3{]}. The
+χ₄ model is therefore best understood as an \emph{effective toy reward} --- a
+mathematically tractable proxy that belongs to the same universality class as
+the true cascade in the thermodynamic limit.
+
+\subsubsection{6.3 Connection to L(1, χ₄)}\label{connection-to-l1-ux3c7ux2084}
+
+The Dirichlet L-function at s = 1 gives the Leibniz formula:
+
+\begin{verbatim}
+L(1, χ₄) = Σ_{n=0}^∞ (−1)^n/(2n+1) = 1 − 1/3 + 1/5 − ⋯ = π/4
+\end{verbatim}
+
+If R = −π (Conjecture 1), then R = −4 L(1, χ₄). The carry bridge produces π
+through the same Dirichlet series that appears in the classical evaluation of π
+via the Leibniz--Gregory formula.
+
+\subsubsection{6.4 Structural identity}\label{structural-identity}
+
+Combined with the sub-sector ratio α → 1/6 = B₂ (the second Bernoulli number)
+and ζ(2) = π²/6:
+
+\begin{verbatim}
+α · R² = (1/6) · π² = π²/6 = ζ(2)
+\end{verbatim}
+
+If both α = 1/6 (Conjecture 2, §8) and R = −π (Conjecture 1) can be established
+from carry arithmetic, this would yield a new proof of the Basel problem --- one
+that begins with integer multiplication. \textbf{Caveat:} this depends on two
+currently unproved conjectures.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\newpage
+
+\subsection{7. The Spectral Zeta Function and
+ζ(2s)}\label{the-spectral-zeta-function-and-ux3b62s}
+
+\subsubsection{7.1 The fluctuation operator}\label{the-fluctuation-operator}
+
+\textbf{Definition 3 (Fluctuation operator).} F = ½I − T\_bridge, where
+T\_bridge is the Markov carry bridge transfer matrix. The eigenvalues of F are
+
+\begin{verbatim}
+ε_n = 1/2 − λ_n = sin²(nπ/(2(L+1))),    n = 1, …, L−1
+\end{verbatim}
+
+\textbf{Definition 4 (Spectral zeta function).}
+
+\begin{verbatim}
+ζ_F(s) = Σ_{n=1}^{L-1} ε_n^{-s} = Σ_{n=1}^{L-1} sin^{-2s}(nπ/(2(L+1)))
+\end{verbatim}
+
+\subsubsection{7.2 Proof of Theorem 3}\label{proof-of-theorem-3}
+
+For n ≪ L, the small-angle approximation sin(x) ≈ x gives ε\_n ≈ (nπ/(2L))², so
+
+\begin{verbatim}
+ζ_F(s) ≈ (2L/π)^{2s} Σ_{n=1}^{L-1} n^{-2s}
+\end{verbatim}
+
+We make this precise. Write ε\_n = (nπ/(2L))² · (sin(x\_n)/x\_n)² where x\_n =
+nπ/(2L). Then
+
+\begin{verbatim}
+ε_n^{-s} = (2L/(nπ))^{2s} · (x_n/sin(x_n))^{2s}
+\end{verbatim}
+
+and
+
+\begin{verbatim}
+ζ_F(s)/(2L/π)^{2s} = Σ_{n=1}^{L-1} n^{-2s} · (x_n/sin(x_n))^{2s}
+\end{verbatim}
+
+\textbf{Error analysis.} The error has two sources:
+
+\emph{(i) Tail truncation.} The missing terms Σ\_\{n≥L\} n\^{}\{-2s\} contribute
+O(L\^{}\{1−2s\}) for Re(s) \textgreater{} 1/2.
+
+\emph{(ii) Sine correction.} For each mode, (x/sin(x))\^{}\{2s\} = 1 + sx²/3 +
+O(x⁴). Summing the leading correction:
+
+\begin{verbatim}
+Σ_{n=1}^{L-1} n^{-2s} · s·(nπ/(2L))²/3 = (sπ²/(12L²)) · Σ_{n=1}^{L-1} n^{2−2s}
+\end{verbatim}
+
+For s \textgreater{} 3/2 this sum converges and the correction is O(1/L²). For
+1/2 \textless{} s ≤ 3/2, the sum grows as L\^{}\{3−2s\} and the correction is
+O(L\^{}\{1−2s\}) = O(1/L) when s = 1.
+
+The combined rate is \(O(L^{1-2\sigma})\) for \(1/2 < \sigma \leq 3/2\),
+improving to \(O(1/L^2)\) for \(\sigma > 3/2\). ∎
+
+\textbf{Remark.} This is a manifestation of Weyl's law {[}14{]}: for any
+self-adjoint operator on a one-dimensional domain of length L with Dirichlet
+boundary conditions, the spectral zeta function reproduces ζ(2s) through the
+asymptotic eigenvalue density at the spectral edge. The carry bridge operator is
+a concrete arithmetic realization of this universal phenomenon.
+
+\subsubsection{7.3 Numerical verification}\label{numerical-verification}
+
+Verified numerically for s = 1, 2, 3, 4 (even zeta values) and s = 3/2, 5/2 (odd
+zeta values ζ(3), ζ(5)):
+
+\begin{longtable}[]{@{}lllll@{}}
+\toprule\noalign{}
+s & ζ(2s) & Ratio at L=100 & Ratio at L=500 & Ratio at L=1000 \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+1 & π²/6 = 1.6449 & 1.6776 & 1.6515 & 1.6482 \\
+2 & π⁴/90 = 1.0823 & 1.1266 & 1.0910 & 1.0867 \\
+3/2 & ζ(3) = 1.2021 & 1.2291 & 1.2075 & 1.2048 \\
+5/2 & ζ(5) = 1.0369 & 1.0542 & 1.0404 & 1.0387 \\
+\end{longtable}
+
+All ratios converge to the exact ζ(2s) values at rates consistent with Theorem 3
+(\(O(L^{1-2\sigma})\) for \(\sigma \leq 3/2\), \(O(1/L^2)\) for
+\(\sigma > 3/2\)).
+
+\subsubsection{7.4 Universality and
+non-universality}\label{universality-and-non-universality}
+
+The ζ(2s) convergence is \emph{universal}: it depends only on the Dirichlet
+boundary conditions and the length L, not on the specific transition
+probabilities. Any operator with the same boundary structure produces the same
+result.
+
+By contrast, the conjectured limit R → −π is \emph{not} universal --- it depends
+on the binary carry structure, the Fejér kernel correlations, and the D-odd
+constraint (Section 10).
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\newpage
+
+\subsection{8. The Bernoulli Hierarchy and the Gaussian
+Integers}\label{the-bernoulli-hierarchy-and-the-gaussian-integers}
+
+\subsubsection{8.1 The Bernoulli hierarchy}\label{the-bernoulli-hierarchy}
+
+The carry chain in binary multiplication encodes Bernoulli numbers at successive
+levels of its spectral decomposition:
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule\noalign{}
+Level & Carry quantity & Value & Bernoulli \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+0 & Stationary distribution & 1 & B₀ = 1 \\
+1 & Spectral gap λ₂ & 1/2 & \textbar B₁\textbar{} = 1/2 \\
+2 & Sub-sector ratio α & 1/6 & B₂ = 1/6 \\
+3 & Value cancellation σ₀₀\^{}\{c₂=1,c₃=1\} & 0 & B₃ = 0 \\
+\end{longtable}
+
+\textbf{Level 0} is trivial: the carry chain has a unique stationary
+distribution. \textbf{Level 1} is the Diaconis--Fulman theorem {[}1{]}: the
+spectral gap of the carry transfer operator in base b is 1/b, giving 1/2 =
+\textbar B₁\textbar{} for binary. \textbf{Level 2} is new. The sub-sector ratio
+α measures the carry population at position D−2, which is directly linked to the
+boundary layer decomposition of {[}E, §8.5{]}: the c\_\{D−2\} = 1 sub-population
+is precisely the ``top'' cascade contribution that is blocked in sector (1,0).
+
+\textbf{Definition 5 (Sub-sector ratio).} Define α(K) =
+σ₀₀\textsuperscript{\{c=1\}(K)/σ₀₀}\{c=0\}(K), where σ₀₀\^{}\{c=0\} and
+σ₀₀\^{}\{c=1\} are the sector-(0,0) partition function restricted to pairs with
+c\_\{D−2\} = 0 and c\_\{D−2\} = 1, respectively.
+
+\textbf{Conjecture 2 (Bernoulli sub-sector ratio).} α(K) → 1/6 = B₂ as K → ∞.
+
+\emph{The evidence is preliminary: the overshoot at K ≥ 20 means the conjecture
+rests on Richardson extrapolation (3.3 digits) rather than direct convergence.
+Additional data at higher K would strengthen the case.}
+
+\emph{Numerical evidence.} Exact enumeration gives:
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule\noalign{}
+K & α(K) & \(\lvert \alpha - 1/6 \rvert\) & Sig. digits \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+7 & 0.15177 & 0.0149 & 1.2 \\
+10 & 0.15958 & 0.0071 & 1.5 \\
+13 & 0.16378 & 0.0029 & 1.9 \\
+16 & 0.16575 & 0.0009 & 2.4 \\
+18 & 0.16652 & 0.0001 & 2.7 \\
+20 & 0.16880 & 0.0021 & 2.0 \\
+21 & 0.16922 & 0.0026 & 2.6 \\
+\end{longtable}
+
+The convergence is non-monotonic, with a two-phase structure: approach from
+below through K = 18, then overshoot at K ≥ 20. The overshoot is present at K =
+21 (α = 0.1692, gap = 0.0026). Richardson extrapolation with the ansatz α(K) =
+α(∞) + a₁K²/2\^{}K + \ldots{} gives α(∞) ≈ 0.1667 (3.3 digits), consistent with
+1/6. The correction structure is K²/2\^{}K rather than pure 1/2\^{}K. The
+non-monotonic convergence is analogous to the oscillatory behaviour of R\_recon
+in Paper E (§8.3), likely reflecting a Gibbs-type phenomenon in the spectral
+truncation.
+
+\subsubsection{8.2 The Euler--Maclaurin connection
+(speculative)}\label{the-eulermaclaurin-connection-speculative}
+
+\emph{This connection is a structural analogy rather than a formal derivation;
+the numerical coincidence is striking but unproved.}
+
+The carry chain computes ⌊(conv + carry)/2⌋ at each position --- a discrete
+summation with rounding. The Euler--Maclaurin formula for the discrepancy
+between a discrete sum and its integral is
+
+\begin{verbatim}
+Σf − ∫f = B₁·Δf + B₂/2!·Δf' + B₄/4!·Δf''' + ⋯
+\end{verbatim}
+
+where B\_n are Bernoulli numbers. The carry chain's spectral decomposition
+mirrors this hierarchy: - B₁ = −1/2 controls the first-order correction
+(exponential convergence rate = spectral gap); - B₂ = 1/6 controls the
+second-order correction (the sub-sector ratio α, which measures how much of the
+carry at D − 2 is ``rescued'' from the c = 1 sub-population).
+
+This connection is structural rather than a formal derivation: the carry chain
+is a nonlinear discrete dynamical system, not a trapezoidal sum. Nonetheless,
+the numerical evidence strongly supports the identification.
+
+\textbf{Theorem 6 (Cascade Rigidity).} For D-odd sector-(0,0) pairs with
+\(c_2 \in \{0,1\}\):
+
+\begin{enumerate}
+\def\labelenumi{(\roman{enumi})}
+\item
+  \(\text{carries}[D-1] = \text{carries}[D] = 0\).
+\item
+  If \(c_2 = \text{carries}[D-2] \geq 1\): \(M = D-2\) and
+  \(\text{val} = c_3 - 1\).
+\item
+  If \(c_2 = 0\) and \(c_3 = \text{carries}[D-3] \geq 1\): \(M = D-3\) and
+  \(\text{val} = c_4 - 1\).
+\item
+  If \(c_2 = c_3 = 0\): \(M\) depends on the full carry chain.
+\end{enumerate}
+
+\emph{Proof.} In sector (0,0), \(x_{K-2} = y_{K-2} = 0\) and
+\(x_{K-1} = y_{K-1} = 1\). The convolution at position \(D-2\) is
+\(\text{conv}_{D-2} = x_{K-2} y_{K-1} + x_{K-1} y_{K-2} = 0\). Then
+\(\text{carries}[D-1] = \lfloor(0 + c_2)/2\rfloor = 0\) for \(c_2 \in \{0,1\}\),
+and \(\text{carries}[D] = \lfloor(1 + 0)/2\rfloor = 0\). Scanning from \(D\)
+downward, the first nonzero carry is at \(D-2\) when \(c_2 \geq 1\), giving
+\(M = D-2\) and \(\text{val} = \text{carries}[D-3] - 1 = c_3 - 1\). When
+\(c_2 = 0\), the scan continues to \(D-3\), etc. □
+
+The theorem extends recursively: at each level \(n \geq 2\), if
+\(c_n = \text{carries}[D-n] \geq 1\) while \(c_2 = \cdots = c_{n-1} = 0\), then
+\(M = D-n\) and \(\text{val} = c_{n+1} - 1\). This recursive extension is
+verified numerically through \(n = 6\) at \(K \leq 13\); a general inductive
+proof for all \(n\) is not given.
+
+\textbf{Corollary (Level 3: B₃ = 0).} For \(c_2 \geq 1\), Theorem 6(ii) gives
+\(\text{val} = c_3 - 1\). When \(c_3 = 1\), every pair contributes
+\(\text{val} = 0\), so \(\sigma_{00}^{c_2 \geq 1,\, c_3 = 1} = 0\) exactly. This
+is the carry-chain incarnation of \(B_3 = 0\): the corresponding term in the
+Euler--Maclaurin formula vanishes. Verified for all \(K \leq 13\)
+(\(n = 1{,}789{,}942\) pairs at \(K = 13\)).
+
+The recursive extension produces the same vanishing at every depth:
+\(\sigma_{00}^{c_2 = 0,\, c_3 \geq 1,\, c_4 = 1} = 0\), and so on. At each
+level, only the ``all-zeros'' sub-population \((c_2 = c_3 = \cdots = c_n = 0)\)
+carries non-trivial cascade dynamics.
+
+\textbf{Level 4: open.} The non-trivial spectral content telescopes into the
+\((c_2, c_3, c_4) = (0,0,0)\) and \((0,0,1)\) cells. Seven candidate
+partition-function ratios, the asymptotic correction structure of \(\alpha(K)\),
+and the spectral gap of the near-boundary carry transfer matrix were tested
+through \(K = 13\); none produces \(|B_4| = 1/30\). Identifying the correct
+observable remains open.
+
+\subsubsection{8.2a Stopping-time
+decomposition}\label{a-stopping-time-decomposition}
+
+Theorem 6, combined with the unit leading carry (Theorem 7, §10.5), yields an
+exact stopping-time decomposition of the sector ratio:
+
+\[\sigma_{ab} = \sum_{\tau=2}^{D-2} n_{ab}(\tau) \cdot E[\text{val} \mid \tau,\, ab]\]
+
+where \(\tau = D - M\) is the depth of the first nonzero carry from the MSB. The
+Cascade Rigidity Theorem makes this decomposition rigorous: at each \(\tau\),
+val \(= c_{\tau+1} - 1\) where \(c_{\tau+1} = \text{carries}[D-\tau-1]\).
+
+\textbf{Structural exclusion.} In sector \((1,0)\), \(\text{conv}_{D-2} = 1\)
+(Proposition 4), so \(\text{carries}[D-2] = 0\) and
+\(P(\tau = 2 \mid \text{sector } 10) = 0\) for all \(K\). Sector \((0,0)\) has
+\(\text{conv}_{D-2} = 0\), allowing \(\tau = 2\).
+
+\textbf{Universality.} Exact enumeration confirms that both \(P(\tau \mid ab)\)
+and \(E[\text{val} \mid \tau, ab]\) converge to \(K\)-independent constants.
+
+\textbf{Table 1.} Stopping-time decomposition constants at \(K = 21\) (from E45
+exact enumeration, \(3.4 \times 10^{11}\) D-odd pairs in the \(X \leq Y\)
+half-plane); cross-K stability from \(K = 19\) to \(K = 21\) confirms
+convergence to 5--6 significant digits.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.0870}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1848}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1848}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1957}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1957}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1522}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+\(\tau\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+\(P(\tau\mid 00)\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+\(P(\tau\mid 10)\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+\(E[v\mid\tau,00]\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+\(E[v\mid\tau,10]\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+\(\Delta(\tau)\)
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+2 & 0.54070 & 0.00000 & −0.00812 & --- & --- \\
+3 & 0.13713 & 0.45726 & −0.11761 & +0.26971 & +0.38732 \\
+4 & 0.10924 & 0.22875 & −0.04089 & +0.31022 & +0.35111 \\
+5 & 0.08557 & 0.14398 & −0.07338 & +0.33738 & +0.41076 \\
+6 & 0.05007 & 0.07849 & −0.00867 & +0.30657 & +0.31525 \\
+7 & 0.03329 & 0.04308 & −0.01270 & +0.32311 & +0.33580 \\
+8 & 0.01862 & 0.02313 & +0.04186 & +0.33033 & +0.28848 \\
+9 & 0.01169 & 0.01231 & +0.01742 & +0.33307 & +0.31565 \\
+\end{longtable}
+
+The sector asymmetry \(\Delta(\tau) = E[v\mid\tau,10] - E[v\mid\tau,00]\) is
+stable to \(< 0.00001\) across \(K = 19\)--\(21\) for \(\tau \leq 5\),
+confirming genuine universality. Richardson extrapolation (assuming convergence
+rate \(\rho = 1/2\)) yields 7-digit estimates of the limiting constants.
+
+\textbf{Identification status.} PSLQ searches against
+\(\{1, \pi, \ln 2, \ln 3\}\) on the Richardson-extrapolated limits produce
+candidate relations with residuals in the range \(10^{-6}\)--\(10^{-7}\) but no
+confident closed forms. The precision is sufficient to confirm universality but
+not to prove algebraic identities. Extending the stopping-time analysis to
+\(K \geq 24\) (computationally feasible with the E45 C implementation) would
+provide the 10+ digits needed for reliable PSLQ identification.
+
+\subsubsection{8.2b Failure of the per-position spectral
+limit}\label{b-failure-of-the-per-position-spectral-limit}
+
+A natural approach to the sector ratio is to analyze the per-position carry
+transition matrices \(T(d)\) directly. Under D-odd conditioning, the carry chain
+at each position \(d\) induces a stochastic matrix on carry states
+\(\{0, 1, 2, \ldots\}\). In the Markov (independent-convolution) model, the bulk
+eigenvalue is \(\lambda_2 = 1/2\) at every position; the Linear Mix Hypothesis
+{[}E{]} would predict \(\lambda_2 = (1-A^{\ast})/2 + A^{\ast}/2 \approx 0.69\).
+
+Empirical computation of the bulk-averaged transition matrix for
+\(K = 5\)--\(12\) (experiment P1\_05) reveals a qualitatively different picture:
+
+\begin{longtable}[]{@{}lcc@{}}
+\toprule\noalign{}
+K & \(\lambda_2(\text{bulk})\) & \(A_{\text{eff}}\) \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+6 & 0.690 & −3.25 \\
+8 & 0.756 & −0.88 \\
+10 & 0.810 & −0.40 \\
+12 & 0.858 & −0.19 \\
+\end{longtable}
+
+The second eigenvalue \(\lambda_2\) grows monotonically toward 1, and the
+effective mixing parameter \(A_{\text{eff}}\) extracted from the LMH formula
+diverges to \(-\infty\) instead of converging to \(A^{\ast} \approx 1.38\). The
+per-position transition matrices become \emph{more rigid} (closer to identity)
+as \(K\) increases --- the D-odd conditioning progressively constrains the local
+transitions, which is the dynamical mechanism behind Theorem 6 (Cascade
+Rigidity).
+
+\textbf{Conclusion.} The Linear Mix Hypothesis cannot hold at the per-position
+level. The LMH must describe a \emph{macroscopic} property of the full resolvent
+
+\[(I - \mathcal{K}_{\text{eff}})^{-1}\]
+
+, not a uniform modification of each per-position factor. This is consistent
+with the resolvent universality mechanism identified in {[}E, §8.3{]}: the
+spectral resolvent achieves \(-\pi\) through collective mode weighting, not
+through any single position's transition structure. The stopping-time
+decomposition (§8.2a) provides the correct analytical framework precisely
+because it bypasses the per-position transition matrices entirely.
+
+\textbf{Boundary-layer concentration.} Approximately 95\% of \(R(K)\) comes from
+\(\tau \leq 7\). The cumulative ratio through \(\tau = 7\) at \(K = 14\) is
+\(-2.66\), close to the full \(R(14) = -2.62\). The cascade dynamics is
+overwhelmingly a boundary-layer phenomenon.
+
+\textbf{Even-odd alternation.} The successive ratios
+\(P(\tau+1 \mid 00)/P(\tau \mid 00)\) exhibit a clear even-odd oscillation
+converging toward \(1/2\):
+\(\{0.254, 0.796, 0.783, 0.584, 0.664, 0.557, 0.626, \ldots\}\). This is
+consistent with the Diaconis--Fulman spectral gap \(\rho = 1/2\) as the
+asymptotic rate, modulated by the carry chain's non-stationary structure near
+the boundary.
+
+\subsubsection{8.3 The ζ(2) product
+(preliminary)}\label{the-ux3b62-product-preliminary}
+
+\emph{This claim is conditional on two unproved conjectures (α → 1/6 and R →
+−π); the ``new proof of the Basel problem'' is speculative until both are
+established.}
+
+The combination of levels 1 and 2 with the conjectural R = −π gives
+
+\begin{verbatim}
+α · R² = (1/6) · π² = ζ(2)
+\end{verbatim}
+
+If both α = 1/6 (Conjecture 2) and R = −π (Conjecture 1) can be established
+analytically from carry arithmetic, this would yield a new proof of the Basel
+problem ζ(2) = π²/6 --- one that begins with integer multiplication rather than
+Fourier analysis or contour integration.
+
+\emph{Numerical verification.} The product α(K) · R(K)² converges:
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule\noalign{}
+K & α · R² & \(\lvert \alpha \cdot R^2 - \zeta(2) \rvert\) \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+11 & 0.405 & 1.24 \\
+15 & 1.218 & 0.43 \\
+18 & 1.583 & 0.062 \\
+20 & 1.648 & 0.003 \\
+21 & 1.662 & 0.017 \\
+\end{longtable}
+
+The product α · R² overshoots ζ(2) at K = 21 because α overshoots 1/6 while R
+has not yet reached −π. The near-exact agreement at K = 20 (gap = 0.003) is
+partially accidental: it reflects a cancellation between the α overshoot and the
+R undershoot at that particular K.
+
+\subsubsection{8.4 Base specificity}\label{base-specificity}
+
+The sub-sector ratio α = 1/6 is \textbf{not universal} --- it is specific to
+base 2. Monte Carlo experiments in bases 3, 5, and 7 show no convergence to 1/6
+or to any other Bernoulli number. In base 3, α is wildly unstable across K
+values; in base 5, the sector ratio itself appears rational (R₅ → 5/4) with α₅
+far from 1/6. This base specificity makes the binary Bernoulli hierarchy more,
+not less, remarkable: it reflects a deep structural property of base-2
+arithmetic, potentially connected to the ramification of 2 in ℤ{[}i{]} (Section
+8.6). See {[}G{]} for the proof that base 2 is the unique base where the
+D-parity boundary is a straight line in angular coordinates.
+
+\subsubsection{8.5 The Euler product
+perspective}\label{the-euler-product-perspective}
+
+Fulman's multiplicativity property K\_a · K\_b = K\_\{ab\} for carry transfer
+operators {[}3{]} implies that the Markov spectral sum in base b factors as
+
+\begin{verbatim}
+S_b(0) = b²/(b² − 1)
+\end{verbatim}
+
+(verified numerically for b = 2, 3, 5, 7, 10). For b = 2 this gives S₂(0) = 4/3.
+(Note: this spectral zeta sum S₂(0) is a different quantity from the Markov
+sector ratio R\_Markov = +2/3 of Theorem 2; both derive from
+independent-convolution statistics but measure different observables.) Taking
+the product over all primes:
+
+\begin{verbatim}
+∏_{p prime} S_p(0) = ∏_p p²/(p² − 1) = ζ(2)
+\end{verbatim}
+
+This is a restatement of the classical Euler product, but viewed through carry
+arithmetic: each prime p contributes its Markov spectral sum factor to ζ(2). The
+non-Markov (exact) sector ratio introduces L(1, χ₄) = π/4 as the additional
+factor, connecting to the Dedekind zeta function (Section 8.6).
+
+\subsubsection{8.6 The Dedekind zeta function of ℚ(i)
+(speculative)}\label{the-dedekind-zeta-function-of-ux211ai-speculative}
+
+\emph{This is a heuristic connection: the factorization is classical;
+attributing both factors to carry arithmetic is conjectural and depends on
+Conjecture 1.}
+
+The Gaussian integers ℤ{[}i{]} have Dedekind zeta function
+
+\begin{verbatim}
+ζ_{ℚ(i)}(s) = ζ(s) · L(s, χ₄)
+\end{verbatim}
+
+The carry bridge produces: - ζ(2s) from the spectral zeta function (Theorem 3),
+via the Markov eigenvalue density - L(1, χ₄) = π/4 from the sector ratio
+(Conjecture 1), via the effective χ₄ model (§6.2) and resolvent universality
+{[}E{]}
+
+Both factors of ζ\_\{ℚ(i)\} thus emerge from the same arithmetic object --- the
+carry bridge of binary multiplication. The prime 2 is the unique rational prime
+that \emph{ramifies} in ℤ{[}i{]}, satisfying 2 = −i(1+i)². This ramification
+forces the character χ₄ into the spectral decomposition, explaining at the
+algebraic level why base 2 is unique {[}G{]}: for b ≥ 3, the sector ratio
+appears to be rational (e.g., R = 5/4 for base 5), and the D-parity boundary is
+curved in angular coordinates, removing the geometric mechanism that produces
+L(1, χ₄).
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\newpage
+
+\subsection{9. Numerical Evidence}\label{numerical-evidence}
+
+\subsubsection{9.1 Exact enumeration}\label{exact-enumeration}
+
+The sector ratio R(K) is computed by exhaustive enumeration of all 4\^{}\{K−1\}
+digit pairs. Enumeration through K = 21 covers 5.5 × 10¹¹ pairs for K = 21 (C
+implementation with 10-thread parallelism, \textasciitilde2.7 hours) {[}5{]}.
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule\noalign{}
+K & R(K) & \(\lvert R(K) + \pi \rvert\) & Sig. digits \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+7 & −0.092 & 3.050 & --- \\
+9 & −0.726 & 2.416 & --- \\
+11 & −1.554 & 1.588 & --- \\
+13 & −2.339 & 0.803 & 0.1 \\
+15 & −2.824 & 0.317 & 0.5 \\
+17 & −3.035 & 0.107 & 1.0 \\
+19 & −3.110 & 0.032 & 1.5 \\
+20 & −3.125 & 0.017 & 1.8 \\
+21 & −3.133 & 0.008 & 2.1 \\
+\end{longtable}
+
+All values from the cascade valuation (Definition 1), cross-validated against
+{[}E, Table 1{]}.
+
+\subsubsection{9.2 Richardson extrapolation}\label{richardson-extrapolation}
+
+The raw convergence R(K) → −π is slow: at K = 21 we have 2.1 significant digits.
+Richardson extrapolation dramatically improves precision.
+
+\textbf{Ansatz 1 (polynomial).} A natural first guess is R(K) = R(∞) + a₁/K² +
+a₂/K⁴ + ⋯, motivated by the O(1/L²) finite-size correction in the Möbius sum
+S(A, L) (Proposition 2). However, the true convergence rate is exponential
+(§9.3), and the polynomial Neville table diverges in practice.
+
+\textbf{Ansatz 2 (exponential).} The empirical gap ratios g(K)/g(K−1) converge
+monotonically to 1/2 (§9.3, Table 1 of {[}E{]}), consistent with
+
+\begin{verbatim}
+R(K) = R(∞) + c₁ ρ^K + c₂ ρ^{2K} + c₃ ρ^{3K} + ⋯,    ρ = 1/2.
+\end{verbatim}
+
+The Neville--Aitken Richardson table with step-size variable h = ρ\^{}K
+eliminates successive error terms.
+
+\textbf{Proposition 3 (Richardson extrapolation).} Applying the Neville--Aitken
+deferred approach to the limit {[}9{]} to the sequence R(K) for K = 7, 9, 11,
+\ldots, 21 with Ansatz 2 (h = (1/2)\^{}K) yields
+
+\begin{verbatim}
+R_extrap = −3.1419… (4.0 significant digits)
+\end{verbatim}
+
+using exact R(K) for K ≤ 13 and K ≥ 19, with E44 approximations for K = 14--18.
+Using only exact values (K ≤ 13, K ≥ 19) the estimate improves to 4.4
+significant digits. Leave-one-out cross-validation confirms stability: removing
+any single K ∈ \{7, \ldots, 17\} changes the estimate by less than 10⁻⁴.
+
+\subsubsection{9.3 Convergence rate}\label{convergence-rate}
+
+The error ε(K) = \textbar R(K) + π\textbar{} satisfies
+
+\begin{verbatim}
+ε(K) = O(K² · 2^{−K})
+\end{verbatim}
+
+for K ≥ 11. The consecutive gap ratio g(K)/g(K−1) forms a monotone sequence
+converging to 1/2 from above: 1.000, 0.954, \ldots, 0.522, 0.491 at K = 21 (see
+{[}E, Table 1{]}). The gap ratio crossing 2 at K = 21 confirms the asymptotic
+regime. This exponential rate is consistent with the Diaconis--Fulman spectral
+radius ρ = 1/2 governing the carry chain {[}4{]}.
+
+\emph{Remark.} A polynomial fit ε ∼ C/K² provides a reasonable approximation for
+moderate K but misses the asymptotic structure. The exponential characterization
+ε ∼ C · (1/2)\^{}K captures the true rate. The Richardson extrapolation of §9.2
+remains effective because at moderate K the polynomial and exponential forms are
+numerically similar.
+
+\subsubsection{9.4 Verification of the closed
+form}\label{verification-of-the-closed-form}
+
+Theorem 1 is verified numerically at 50-digit precision using
+arbitrary-precision arithmetic. The algebraic identity 4r/(γ(1−r²)) = 2β/(1+2β)
+holds to full precision for all tested values of β. The formula S(β*, L) → −π is
+confirmed at L = 1000 with \textbar S + π\textbar{} \textless{} 4 × 10⁻⁵,
+consistent with the O(1/L²) rate.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\newpage
+
+\subsection{10. The Gap: From S(A) to R(K)}\label{the-gap-from-sa-to-rk}
+
+\subsubsection{10.1 What is proved}\label{what-is-proved}
+
+Theorem 1 establishes that the abstract alternating sum S(A) = 2(1−A)/(3−2A) is
+a closed-form Möbius transformation. Setting S = −π yields A* = (3π+2)/(2(π+1)).
+The spectral zeta function ζ\_F(s) → ζ(2s) is proved (Theorem 3). The Dirichlet
+character χ₄(n) = sin(nπ/2) emerges as the effective spectral weight (§6.2).
+
+\subsubsection{10.2 The gap and the universality
+phenomenon}\label{the-gap-and-the-universality-phenomenon}
+
+The gap between the abstract sum S(A) and the physical sector ratio R(K) is the
+central open problem. Three observations constrain its nature:
+
+\textbf{Observation 1 (Distinct convergence rates).} The abstract sum converges
+polynomially: S(A, L) − S(A, ∞) = O(1/L²). The physical sector ratio converges
+exponentially: R(K) − R(∞) = O(K²/2\^{}K).
+
+\textbf{Observation 2 (A\_fit does not converge).} Defining A\_fit(K) by the
+equation S(A\_fit, 2K−1) = R(K), the sequence A\_fit(K) does not converge to A*.
+
+\textbf{Observation 3 (Carry projection is exact Markov).} Projecting the exact
+(non-Markov) transfer operator onto carry degrees of freedom recovers the Markov
+transfer matrix exactly. The parameter A is therefore \emph{not} a perturbative
+eigenvalue shift.
+
+These observations rule out deriving A* from the Fejér kernel correlation
+structure. Nonetheless, both S(A, L) and R(K) converge numerically to the same
+value −π --- a \emph{universality} phenomenon {[}P2{]} that we state as a
+conjecture:
+
+\textbf{Conjecture 3 (Universality).} Let
+\(S(A^{\ast}, L) = 2(1-A^{\ast})/(3-2A^{\ast})\) be the abstract Möbius sum
+(Theorem 1), and let \(R(K) = \sigma_{10}(K)/\sigma_{00}(K)\) be the cascade
+sector ratio (Definition 2). Then
+
+\[\lim_{L \to \infty} S(A^{\ast}, L) \;=\; \lim_{K \to \infty} R(K) \;=\; -\pi,\]
+
+\emph{where the left equality is proved (Theorem 1) and the right is Conjecture
+1. The two systems share different microscopic dynamics (polynomial vs
+exponential finite-size corrections) but the same macroscopic limit.}
+
+The common mechanism is the Dirichlet character χ₄ and the L-function L(1, χ₄) =
+π/4. {[}E{]} identifies \textbf{resolvent universality} as the specific
+mechanism: the spectral resolvent
+
+\[(I - \mathcal{K}_{\mathrm{eff}})^{-1}\]
+
+, applied to the true per-sector cascade profiles, produces a macroscopic sum
+converging to \(-\pi\) through collective mode weighting. The left limit is an
+exact algebraic evaluation; the right is supported by 4.0-digit exponential
+Richardson extrapolation through K = 21 (§9).
+
+\subsubsection{10.3 Structural decomposition}\label{structural-decomposition}
+
+\textbf{Proposition 4 (Top-carry constraint).} For a D-odd product n = p·q with
+D = 2K−1, the convolution at position D−2 equals exactly conv\_\{D−2\} = a + c,
+where a = p\_\{K−2\} and c = q\_\{K−2\} are the sector bits.
+
+\emph{Proof.} conv\_\{D−2\} = p\_\{K−2\} · q\_\{K−1\} + p\_\{K−1\} · q\_\{K−2\}
+= a · 1 + 1 · c = a + c.~□
+
+\textbf{Corollary.} The D-odd condition requires carries{[}D−1{]} = 0, hence (a
++ c + carries{[}D−2{]}) \textless{} 2. For sector (1,0): a + c = 1, so
+carries{[}D−2{]} = 0, forcing M ≤ D−3. For sector (0,0): carries{[}D−2{]} ∈
+\{0,1\}, yielding two sub-populations. This gives σ\_\{00\} =
+σ\_\{00\}\^{}\{top\} + σ\_\{00\}\^{}\{low\}, while σ\_\{10\} =
+σ\_\{10\}\^{}\{low\} has no top contribution. {[}E, §8.5{]} independently
+establishes this structural exclusion: P(j=2\textbar sector 10) = 0, confirmed
+by backward dynamic programming ({[}E{]}).
+
+\textbf{Proposition 5 (Exact symmetry).} σ\_\{10\}(K) = σ\_\{01\}(K) for all K.
+
+\emph{Proof.} The substitution (p,q) ↦ (q,p) maps sector (1,0) to (0,1),
+preserving all carries. □
+
+\textbf{Theorem 4 (N₁₁ = 0).} For all K ≥ 2, no D-odd pair has sector (1,1).
+
+\emph{Proof.} In sector (1,1), conv\_\{D−2\} = 2. The D-odd condition requires
+carries{[}D−1{]} = 0, but (2 + carries{[}D−2{]})/2 ≥ 1, contradiction. □
+
+\textbf{Theorem 5 (Closed-form count ratio).} In the continuous limit K → ∞,
+
+\[N_{10}/N_{00} \to \frac{2\ln(4/3) - 1/2}{2\ln(9/8)} = 0.31992784225\ldots\]
+
+with correction O(1/2\^{}K).
+
+\emph{Proof.} Write X = 2\^{}\{K−1\}(1 + u), Y = 2\^{}\{K−1\}(1 + v) with u, v ∈
+{[}0, 1). The D-odd condition (1 + u)(1 + v) \textless{} 2 defines a region in
+(u,v). Sectors are determined by ⌊2u⌋ and ⌊2v⌋: area f₀₀ = 2 ln(9/8), f₁₀ = 2
+ln(4/3) − 1/2, f₁₁ = 0. Verified to 8 significant digits against exact
+enumeration (K = 3--21). □
+
+\textbf{Corollary (π isolation).} Since R = (⟨val⟩₁₀/⟨val⟩₀₀) × (N₁₀/N₀₀) and
+N₁₀/N₀₀ involves only ln 2 and ln 3, the entire factor π enters through the
+carry weight ratio:
+
+\[\langle\text{val}\rangle_{10}/\langle\text{val}\rangle_{00} \to -\pi \cdot \frac{2\ln(9/8)}{2\ln(4/3) - 1/2} = -9.8197\ldots\]
+
+Any proof must explain how the sector bit perturbation modifies the
+\emph{distribution} of c\_\{M−1\} to produce this ratio. The Dirichlet series
+approach (character decomposition by n mod 4) does not cleanly factor R, since
+\textasciitilde75\% of D-odd products are even.
+
+\emph{Remark.} {[}E, §9.2{]} falsifies the hypothesis that the \emph{cascade
+count} ratio n₀₀/n₁₀ converges to π; the limit is algebraic (≈ 25/8). Combined
+with Theorem 5, this confirms that π is entirely \emph{dynamical}: it resides in
+the carry weight functional, not in any geometric count.
+
+\subsubsection{10.4 The carry weight
+mechanism}\label{the-carry-weight-mechanism}
+
+The total variation distance TV(j) between the carry distributions in sectors
+(1,0) and (0,0) reveals a boundary layer with two peaks: TV ≈ 0.16 at j = K−2
+(sector bit perturbation) and TV ≈ 0.54 at j = D−2 (top structural constraint),
+with a plateau TV ≈ 0.06 in between.
+
+Four steps link the sector bit to the carry weight val = c\_\{M−1\} − 1:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Convolution perturbation (position K−2).} The sector bit a = 1 adds
+  q\_\{j−K+2\} to conv\_j for j ∈ {[}K−2, 2K−3{]}, generating additional carries
+  in the bulk.
+\item
+  \textbf{Carry propagation.} The extra carries propagate upward through
+  \textasciitilde K positions; the mean carry at each position is
+  \textasciitilde0.35 higher in sector (1,0) {[}F{]}.
+\item
+  \textbf{Top constraint (position D−2).} The D-odd condition forces
+  carries{[}D−2{]} = 0 in sector (1,0), eliminating the ``top'' population and
+  shifting M to D−3 or lower.
+\item
+  \textbf{Val distribution shift.} The higher carry levels in sector (1,0),
+  combined with the constrained top, produce 30\% with c\_\{M−1\} = 2 (val = +1)
+  vs 5.5\% in sector (0,0)\emph{\{low\}, driving σ}\{10\} \textgreater{} 0 while
+  σ\_\{00\} \textless{} 0.
+\end{enumerate}
+
+\textbf{Spectral connection.} The sector bit perturbation is a ramp (constant
+⟨Δconv\_j⟩ = 1/2) over half the chain. In the bridge eigenmode basis sin(nπj/L),
+the ramp Fourier coefficients Δv\_n = {[}cos(nπ/2) − cos(nπ){]}/(nπ) combined
+with the source-point factor sin(nπ/2) satisfy:
+
+\[\sin(n\pi/2) \cdot [\cos(n\pi/2) - \cos(n\pi)]
+= \sin(n\pi/2)\ \text{if } n \text{ is odd},\ \text{and } 0\ \text{if } n \text{ is even}.\]
+
+The even-mode contributions cancel exactly; the odd-mode sum becomes Σ
+sin(nπ/2)/n = π/4 = L(1, χ₄). This explains conceptually how the Leibniz series
+enters the problem.
+
+\textbf{Remaining normalization gap.} With the Diaconis--Fulman spectral gap λ =
+1/2 taken as constant, the spectral sum evaluates to 1/2, not −π. The
+discrepancy factor −2π must originate from: (i) the mode-dependent eigenvalue
+spectrum of the non-Markovian carry chain; (ii) the non-local observation
+functional val = c\_\{M−1\} − 1 evaluated at the random stopping position M−1;
+and (iii) the redistribution of the M = D−2 population (\textasciitilde55\% of
+sector (0,0)) into M ≤ D−3 in sector (1,0). All three concern carry weights,
+consistent with the π-isolation corollary. The analytical resolution is
+identified in {[}E, §9{]} as the \textbf{Holte bridge / Doob h-transform}
+matching between the bulk carry distribution (conditioned on D-odd) and the
+boundary layer exclusions.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsubsection{10.5 Analytical evidence: continuum limit and exact symbolic
+forms}\label{analytical-evidence-continuum-limit-and-exact-symbolic-forms}
+
+\textbf{Carry recursion from MSB.} Define carry\([d]\) = carry at position
+\(D-1-d\) from below, with recursion
+carry\([d] = 2 \cdot\)carry\([d-1] + b_d - C_d\) and carry\([0] = 0\).
+
+\textbf{Theorem 7 (Unit leading carry).} Let \(d_0\) be the smallest
+\(d \geq 1\) with carry\([d] \geq 1\). Then carry\([d_0] = 1\) exactly.
+
+\emph{Proof.} Since carry\([d_0-1] = 0\), carry\([d_0] = b_{d_0} - C_{d_0}\).
+For carry \(\geq 1\) with \(b_{d_0} \in \{0,1\}\) and \(C_{d_0} \geq 0\):
+necessarily \(C_{d_0} = 0\) and \(b_{d_0} = 1\). □
+
+\textbf{Corollary (Universal val formula).}
+\(\text{val} = 1 + b_{d_0+1} - C_{d_0+1}\) for all depths \(d_0\) and both
+sectors.
+
+The continuum function
+\(\text{val}_\infty(u,v) = \lim_{K \to \infty} \text{val}(u,v;K)\) is a
+well-defined step function taking values in \(\{-1,0,+1\}\), giving sector sums
+\(\sigma_{ac} = \int\!\!\int_{\text{sector } ac,\, \text{D-odd}} \text{val}_\infty(u,v)\, du\, dv\).
+
+\textbf{Exact symbolic forms.} Each \(\sigma(d_0)\) admits an exact closed form
+as a rational linear combination of
+\(\{1, \ln p : p \text{ prime}, p \leq 2^{d_0+2}\}\):
+
+\[\sigma_{00}(1) = \tfrac{1}{2} + \tfrac{9}{2}\ln 2 - 2\ln 3 - 3\ln 5 + \tfrac{7}{4}\ln 7\]
+
+The individual coefficients grow as \(\sim 4^{d_0}\) while
+\(\sigma(d_0) = O(2^{-d_0})\). After 7 depth levels, the cumulative \(\ln 2\)
+coefficient reaches \textasciitilde1523, while the total
+\(\sigma_{00} \approx -0.007\) --- catastrophic cancellation (ratio \(> 10^5\))
+essential to the emergence of \(\pi\). At each depth \(d_0\), new primes in
+\([2^{d_0+1}, 2^{d_0+2}]\) enter, so the infinite series involves \textbf{all
+primes}. By Baker's theorem, no finite combination of logarithms of algebraic
+numbers equals \(\pi\); the infinite series circumvents this obstruction.
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule\noalign{}
+\(d_{\max}\) & \(\sigma_{10}/\sigma_{00}\) & \(\lvert R + \pi \rvert\) &
+digits \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+5 & \(-2.695\) & \(4.5 \times 10^{-1}\) & 0.85 \\
+10 & \(-3.098\) & \(4.3 \times 10^{-2}\) & 1.86 \\
+12 & \(-3.129\) & \(1.2 \times 10^{-2}\) & 2.41 \\
+14 & \(-3.139\) & \(2.1 \times 10^{-3}\) & 3.18 \\
+15 & \(-3.14146\) & \(1.4 \times 10^{-4}\) & \textbf{4.36} \\
+\end{longtable}
+
+Beyond \(d_0 = 15\), catastrophic cancellation exceeds float64 precision.
+Extended precision (60 digits; {[}E{]}) reaches \(d_0 = 18\) but reveals a
+structural limitation: the depth-first carry-free enumeration captures only
+17--33\% of the D-odd configuration space, causing the ratio to worsen beyond
+\(d_0 = 15\). This is a method limitation, not a failure of the \(-\pi\)
+conjecture.
+
+\newpage
+
+\subsection{11. Open Problems}\label{open-problems}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Prove \(\sigma_{10}/\sigma_{00} = -\pi\) analytically. The decomposition
+  \(R = R_0 + \Delta R\) (where \(R_0 = -3.9312\ldots\) involves only \(\ln 2\)
+  and \(\ln 3\), and \(\Delta R = +0.7896\ldots\) carries the entire
+  transcendental content) reduces the problem to showing that the cascade
+  correction \(\Delta R = |R_0| - \pi\). Six equivalent formulations are
+  catalogued in §10.5; the depth series \(\sum_{d=1}^\infty \sigma(d)\)
+  converges to 4.36 significant digits at \(d_{\max} = 15\). The most promising
+  analytical path is the \textbf{stopping-time series} (§8.2a): derive
+  \(P(\tau \mid ab)\) and \(E[\text{val} \mid \tau, ab]\) analytically from the
+  carry chain structure, then sum
+  \(R = \sum_\tau [n_{10}(\tau) \cdot E[\text{val} \mid \tau, 10] + \cdots]\).
+  The sector asymmetry
+  \(\Delta(\tau) = E[v \mid \tau, 10] - E[v \mid \tau, 00]\), which converges to
+  \(K\)-independent constants (Table 1, §8.2a), is the core quantity: it encodes
+  the entire transcendental content of R. The per-position spectral approach
+  (Doob h-transform of local transition matrices) is ruled out: §8.2b shows that
+  the per-position eigenvalues grow with \(K\) instead of stabilizing, so the
+  LMH must operate at the global resolvent level, not locally. Current status
+  from the Step3 bridge: the \texttt{χ₄\ -\textgreater{}\ L(1,χ₄)} part is
+  reduced to a scalar closure \texttt{R(∞)=C·L(1,χ₄)} with data-constrained
+  \texttt{C∈{[}-4.0032,-3.9896{]}}, and the dominant decay rate is reduced to
+  proving the analytic \texttt{1/2} bound for the conditioned chain. See {[}E,
+  §9{]} for the updated closure map.
+\item
+  \textbf{Base universality.} For base b ≥ 3, the Markov sum S\_b(0) =
+  b²/(b²−1). Is the exact sector ratio R\_b rational for all b ≥ 3? Exact
+  enumeration for base 3 and base 5 would test this. The conjecture R₅ = 5/4 has
+  preliminary numerical support.
+\item
+  \textbf{Higher Bernoulli levels.} The hierarchy B₀, \textbar B₁\textbar, B₂ is
+  confirmed through Level 2. Level 3 (B₃ = 0) is proved by Theorem 6: the
+  cascade rigidity forces \(\sigma_{00}^{c_2 \geq 1,\, c_3=1} = 0\) exactly, and
+  the recursive extension produces the same vanishing at every depth. The Level
+  4 signal \textbar B₄\textbar{} = 1/30 does not appear as a simple
+  partition-function ratio, asymptotic correction coefficient, or spectral gap
+  (all tested through K = 13). The non-trivial dynamics telescopes into the
+  \((c_2, c_3, \ldots) = (0, 0, \ldots)\) sub-population at each level.
+  Identifying the correct Level 4 observable remains open.
+\item
+  \textbf{Catalan's constant from carries.} The value L(2, χ₄) = G =
+  0.9159\ldots{} (Catalan's constant) is the next L-function value after L(1,
+  χ₄) = π/4. Can it be extracted from carry chain data?
+\item
+  \textbf{ζ(s) at odd arguments} (speculative). The Dedekind factorization ζ(s)
+  = ζ\_\{ℚ(i)\}(s)/L(s, χ₄) gives ζ(s) at all arguments if L(s, χ₄) is
+  accessible from carries for general s. The case ζ(3) = 1.20206\ldots{}
+  (Apéry's constant) is the most important test.
+\item
+  \textbf{New proof of the Basel problem} (conditional). If both α = 1/6
+  (Conjecture 2) and R = −π (Conjecture 1) are proved from carry arithmetic,
+  then ζ(2) = αR² = π²/6 follows. This depends on two currently unproved
+  conjectures; neither is close to resolution.
+\end{enumerate}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\newpage
+
+\subsection{References}\label{references}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  P. Diaconis and J. Fulman, \emph{Carries, shuffling, and symmetric functions},
+  Adv. Appl. Math. \textbf{43} (2009), 176--196.
+\item
+  P. Diaconis and J. Fulman, \emph{Carries, shuffling, and an amazing matrix},
+  Amer. Math. Monthly \textbf{116} (2009), 788--803.
+\item
+  J. Fulman, \emph{The carries process revisited}, preprint (2023).
+\item
+  J. M. Holte, \emph{Carries, combinatorics, and an amazing matrix}, Amer. Math.
+  Monthly \textbf{104} (1997), 138--149.
+\item
+  D. E. Knuth, \emph{The Art of Computer Programming, Volume 2: Seminumerical
+  Algorithms}, 3rd ed., Addison-Wesley, 1997. (Chapter 4.3: Multiple-precision
+  arithmetic.)
+\item
+  L. Euler, \emph{De summis serierum reciprocarum}, Comment. Acad. Sci. Petrop.
+  \textbf{7} (1740), 123--134.
+\item
+  R. Remmert, \emph{Classical Topics in Complex Function Theory}, Graduate Texts
+  in Mathematics \textbf{172}, Springer, 1998. (Chapter 9: The number π.)
+\item
+  M. V. Berry and J. P. Keating, \emph{The Riemann zeros and eigenvalue
+  asymptotics}, SIAM Rev.~\textbf{41} (1999), 236--266.
+\item
+  L. F. Richardson and J. A. Gaunt, \emph{The deferred approach to the limit},
+  Phil. Trans. R. Soc. A \textbf{226} (1927), 299--361.
+\item
+  I. S. Gradshteyn and I. M. Ryzhik, \emph{Table of Integrals, Series, and
+  Products}, 7th ed., Academic Press, 2007. (Entry 1.421.3.)
+\item
+  P. G. L. Dirichlet, \emph{Beweis des Satzes, dass jede unbegrenzte
+  arithmetische Progression\ldots{}}, Abh. Königl. Preuss. Akad. Wiss. (1837),
+  45--81.
+\item
+  G. Tenenbaum, \emph{Introduction to Analytic and Probabilistic Number Theory},
+  3rd ed., Graduate Studies in Mathematics \textbf{163}, AMS, 2015. (Chapter
+  II.5: Selberg--Delange method.)
+\item
+  T. Apostol, \emph{Introduction to Analytic Number Theory}, Springer, 1976.
+  (Chapters 6, 12: Dirichlet characters and L-functions.)
+\item
+  H. Weyl, \emph{Über die asymptotische Verteilung der Eigenwerte}, Nachr. Ges.
+  Wiss. Göttingen (1911), 110--117.
+\item
+  D. Zagier, \emph{Values of zeta functions and their applications}, in
+  \emph{First European Congress of Mathematics}, Progress in Math. \textbf{120},
+  Birkhäuser, 1994, 497--512.
+\item
+  E. C. Titchmarsh, \emph{The Theory of the Riemann Zeta-Function}, 2nd
+  ed.~(revised by D. R. Heath-Brown), Oxford, 1986.
+\item
+  {[}P2{]} Companion paper: \emph{The sector ratio in binary multiplication:
+  from Markov failure to transcendence}.
+\item
+  {[}G{]} Companion paper: \emph{The angular uniqueness of base 2 in positional
+  multiplication}.
+\item
+  {[}E{]} Companion paper: \emph{The Trace Anomaly of Binary Multiplication}.
+  (Identifies conditionally the mechanism for \(R \to -\pi\) via resolvent
+  universality, assuming the LMH.)
+\item
+  {[}A{]} Companion paper: \emph{Spectral theory of carries in positional
+  multiplication}. (Foundation: the \(m\)-bit Equidistribution Lemma extending
+  Diaconis--Fulman to the transfer operator.)
+\item
+  {[}F{]} Companion paper: \emph{Exact covariance structure of binary carry
+  chains}. (Carry expectation \(E[c_j] = (j-1)/4\), off-diagonal covariance
+  \(\text{Cov}(c_j, g_i h_{j-i}) = 1/8\).)
+\item
+  {[}B{]} Companion paper: ``Carry Polynomials and the Euler Product: An
+  Approximation Framework,'' this series.
+\end{enumerate}
+
+\end{document}

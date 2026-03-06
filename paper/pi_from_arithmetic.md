@@ -722,9 +722,9 @@ Beyond $d_0 = 15$, catastrophic cancellation exceeds float64 precision. Extended
 14. H. Weyl, *Über die asymptotische Verteilung der Eigenwerte*, Nachr. Ges. Wiss. Göttingen (1911), 110–117.
 15. D. Zagier, *Values of zeta functions and their applications*, in *First European Congress of Mathematics*, Progress in Math. **120**, Birkhäuser, 1994, 497–512.
 16. E. C. Titchmarsh, *The Theory of the Riemann Zeta-Function*, 2nd ed. (revised by D. R. Heath-Brown), Oxford, 1986.
-17. [P2] Companion paper: *The sector ratio in binary multiplication: from Markov failure to transcendence*.
-18. [G] Companion paper: *The angular uniqueness of base 2 in positional multiplication*.
-19. [E] Companion paper: *The Trace Anomaly of Binary Multiplication*. (Identifies conditionally the mechanism for $R \to -\pi$ via resolvent universality, assuming the LMH.)
-20. [A] Companion paper: *Spectral theory of carries in positional multiplication*. (Foundation: the $m$-bit Equidistribution Lemma extending Diaconis–Fulman to the transfer operator.)
-21. [F] Companion paper: *Exact covariance structure of binary carry chains*. (Carry expectation $E[c_j] = (j-1)/4$, off-diagonal covariance $\text{Cov}(c_j, g_i h_{j-i}) = 1/8$.)
-22. [B] Companion paper: "Carry Polynomials and the Euler Product: An Approximation Framework," this series.
+17. [P2] Companion paper: *The sector ratio in binary multiplication: from Markov failure to transcendence*. doi:10.5281/zenodo.18895615
+18. [G] Companion paper: *The angular uniqueness of base 2 in positional multiplication*. doi:10.5281/zenodo.18895601
+19. [E] Companion paper: *The Trace Anomaly of Binary Multiplication*. (Identifies conditionally the mechanism for $R \to -\pi$ via resolvent universality, assuming the LMH.). doi:10.5281/zenodo.18895604
+20. [A] Companion paper: *Spectral theory of carries in positional multiplication*. (Foundation: the $m$-bit Equidistribution Lemma extending Diaconis–Fulman to the transfer operator.). doi:10.5281/zenodo.18895593
+21. [F] Companion paper: *Exact covariance structure of binary carry chains*. (Carry expectation $E[c_j] = (j-1)/4$, off-diagonal covariance $\text{Cov}(c_j, g_i h_{j-i}) = 1/8$.). doi:10.5281/zenodo.18895607
+22. [B] Companion paper: "Carry Polynomials and the Euler Product: An Approximation Framework," this series. doi:10.5281/zenodo.18895597

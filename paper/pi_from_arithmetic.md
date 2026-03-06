@@ -391,7 +391,7 @@ where B_n are Bernoulli numbers. The carry chain's spectral decomposition mirror
 
 This connection is structural rather than a formal derivation: the carry chain is a nonlinear discrete dynamical system, not a trapezoidal sum. Nonetheless, the numerical evidence strongly supports the identification.
 
-**Theorem 6 (Cascade Rigidity).** For D-odd sector-(0,0) pairs with $c_2 \in \{0,1\}$:
+**Theorem 6 (Cascade Rigidity).** For D-odd sector-(0,0) pairs with $c_2 \in \lbrace{}0,1\rbrace{}$:
 
 (i) $\text{carries}[D-1] = \text{carries}[D] = 0$.
 
@@ -401,7 +401,7 @@ This connection is structural rather than a formal derivation: the carry chain i
 
 (iv) If $c_2 = c_3 = 0$: $M$ depends on the full carry chain.
 
-*Proof.* In sector (0,0), $x_{K-2} = y_{K-2} = 0$ and $x_{K-1} = y_{K-1} = 1$. The convolution at position $D-2$ is $\text{conv}_{D-2} = x_{K-2} y_{K-1} + x_{K-1} y_{K-2} = 0$. Then $\text{carries}[D-1] = \lfloor(0 + c_2)/2\rfloor = 0$ for $c_2 \in \{0,1\}$, and $\text{carries}[D] = \lfloor(1 + 0)/2\rfloor = 0$. Scanning from $D$ downward, the first nonzero carry is at $D-2$ when $c_2 \geq 1$, giving $M = D-2$ and $\text{val} = \text{carries}[D-3] - 1 = c_3 - 1$. When $c_2 = 0$, the scan continues to $D-3$, etc. □
+*Proof.* In sector (0,0), $x_{K-2} = y_{K-2} = 0$ and $x_{K-1} = y_{K-1} = 1$. The convolution at position $D-2$ is $\text{conv}_{D-2} = x_{K-2} y_{K-1} + x_{K-1} y_{K-2} = 0$. Then $\text{carries}[D-1] = \lfloor(0 + c_2)/2\rfloor = 0$ for $c_2 \in \lbrace{}0,1\rbrace{}$, and $\text{carries}[D] = \lfloor(1 + 0)/2\rfloor = 0$. Scanning from $D$ downward, the first nonzero carry is at $D-2$ when $c_2 \geq 1$, giving $M = D-2$ and $\text{val} = \text{carries}[D-3] - 1 = c_3 - 1$. When $c_2 = 0$, the scan continues to $D-3$, etc. □
 
 The theorem extends recursively: at each level $n \geq 2$, if $c_n = \text{carries}[D-n] \geq 1$ while $c_2 = \cdots = c_{n-1} = 0$, then $M = D-n$ and $\text{val} = c_{n+1} - 1$. This recursive extension is verified numerically through $n = 6$ at $K \leq 13$; a general inductive proof for all $n$ is not given.
 
@@ -438,11 +438,11 @@ where $\tau = D - M$ is the depth of the first nonzero carry from the MSB. The C
 
 The sector asymmetry $\Delta(\tau) = E[v\mid\tau,10] - E[v\mid\tau,00]$ is stable to $< 0.00001$ across $K = 19$–$21$ for $\tau \leq 5$, confirming genuine universality. Richardson extrapolation (assuming convergence rate $\rho = 1/2$) yields 7-digit estimates of the limiting constants.
 
-**Identification status.** PSLQ searches against $\{1, \pi, \ln 2, \ln 3\}$ on the Richardson-extrapolated limits produce candidate relations with residuals in the range $10^{-6}$–$10^{-7}$ but no confident closed forms. The precision is sufficient to confirm universality but not to prove algebraic identities. Extending the stopping-time analysis to $K \geq 24$ (computationally feasible with the E45 C implementation) would provide the 10+ digits needed for reliable PSLQ identification.
+**Identification status.** PSLQ searches against $\lbrace{}1, \pi, \ln 2, \ln 3\rbrace{}$ on the Richardson-extrapolated limits produce candidate relations with residuals in the range $10^{-6}$–$10^{-7}$ but no confident closed forms. The precision is sufficient to confirm universality but not to prove algebraic identities. Extending the stopping-time analysis to $K \geq 24$ (computationally feasible with the E45 C implementation) would provide the 10+ digits needed for reliable PSLQ identification.
 
 ### 8.2b Failure of the per-position spectral limit
 
-A natural approach to the sector ratio is to analyze the per-position carry transition matrices $T(d)$ directly.  Under D-odd conditioning, the carry chain at each position $d$ induces a stochastic matrix on carry states $\{0, 1, 2, \ldots\}$.  In the Markov (independent-convolution) model, the bulk eigenvalue is $\lambda_2 = 1/2$ at every position; the Linear Mix Hypothesis [E] would predict $\lambda_2 = (1-A^{\ast})/2 + A^{\ast}/2 \approx 0.69$.
+A natural approach to the sector ratio is to analyze the per-position carry transition matrices $T(d)$ directly.  Under D-odd conditioning, the carry chain at each position $d$ induces a stochastic matrix on carry states $\lbrace{}0, 1, 2, \ldots\rbrace{}$.  In the Markov (independent-convolution) model, the bulk eigenvalue is $\lambda_2 = 1/2$ at every position; the Linear Mix Hypothesis [E] would predict $\lambda_2 = (1-A^{\ast})/2 + A^{\ast}/2 \approx 0.69$.
 
 Empirical computation of the bulk-averaged transition matrix for $K = 5$–$12$ (experiment P1\_05) reveals a qualitatively different picture:
 
@@ -463,7 +463,7 @@ $$(I - \mathcal{K}_{\text{eff}})^{-1}$$
 
 **Boundary-layer concentration.** Approximately 95% of $R(K)$ comes from $\tau \leq 7$. The cumulative ratio through $\tau = 7$ at $K = 14$ is $-2.66$, close to the full $R(14) = -2.62$. The cascade dynamics is overwhelmingly a boundary-layer phenomenon.
 
-**Even-odd alternation.** The successive ratios $P(\tau+1 \mid 00)/P(\tau \mid 00)$ exhibit a clear even-odd oscillation converging toward $1/2$: $\{0.254, 0.796, 0.783, 0.584, 0.664, 0.557, 0.626, \ldots\}$. This is consistent with the Diaconis–Fulman spectral gap $\rho = 1/2$ as the asymptotic rate, modulated by the carry chain's non-stationary structure near the boundary.
+**Even-odd alternation.** The successive ratios $P(\tau+1 \mid 00)/P(\tau \mid 00)$ exhibit a clear even-odd oscillation converging toward $1/2$: $\lbrace{}0.254, 0.796, 0.783, 0.584, 0.664, 0.557, 0.626, \ldots\rbrace{}$. This is consistent with the Diaconis–Fulman spectral gap $\rho = 1/2$ as the asymptotic rate, modulated by the carry chain's non-stationary structure near the boundary.
 
 ### 8.3 The ζ(2) product (preliminary)
 
@@ -666,13 +666,13 @@ The even-mode contributions cancel exactly; the odd-mode sum becomes Σ sin(nπ/
 
 **Theorem 7 (Unit leading carry).** Let $d_0$ be the smallest $d \geq 1$ with carry$[d] \geq 1$. Then carry$[d_0] = 1$ exactly.
 
-*Proof.* Since carry$[d_0-1] = 0$, carry$[d_0] = b_{d_0} - C_{d_0}$. For carry $\geq 1$ with $b_{d_0} \in \{0,1\}$ and $C_{d_0} \geq 0$: necessarily $C_{d_0} = 0$ and $b_{d_0} = 1$. □
+*Proof.* Since carry$[d_0-1] = 0$, carry$[d_0] = b_{d_0} - C_{d_0}$. For carry $\geq 1$ with $b_{d_0} \in \lbrace{}0,1\rbrace{}$ and $C_{d_0} \geq 0$: necessarily $C_{d_0} = 0$ and $b_{d_0} = 1$. □
 
 **Corollary (Universal val formula).** $\text{val} = 1 + b_{d_0+1} - C_{d_0+1}$ for all depths $d_0$ and both sectors.
 
-The continuum function $\text{val}_\infty(u,v) = \lim_{K \to \infty} \text{val}(u,v;K)$ is a well-defined step function taking values in $\{-1,0,+1\}$, giving sector sums $\sigma_{ac} = \int\!\!\int_{\text{sector } ac,\, \text{D-odd}} \text{val}_\infty(u,v)\, du\, dv$.
+The continuum function $\text{val}_\infty(u,v) = \lim_{K \to \infty} \text{val}(u,v;K)$ is a well-defined step function taking values in $\lbrace{}-1,0,+1\rbrace{}$, giving sector sums $\sigma_{ac} = \int\!\!\int_{\text{sector } ac,\, \text{D-odd}} \text{val}_\infty(u,v)\, du\, dv$.
 
-**Exact symbolic forms.** Each $\sigma(d_0)$ admits an exact closed form as a rational linear combination of $\{1, \ln p : p \text{ prime}, p \leq 2^{d_0+2}\}$:
+**Exact symbolic forms.** Each $\sigma(d_0)$ admits an exact closed form as a rational linear combination of $\lbrace{}1, \ln p : p \text{ prime}, p \leq 2^{d_0+2}\rbrace{}$:
 
 $$\sigma_{00}(1) = \tfrac{1}{2} + \tfrac{9}{2}\ln 2 - 2\ln 3 - 3\ln 5 + \tfrac{7}{4}\ln 7$$
 

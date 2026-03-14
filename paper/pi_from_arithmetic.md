@@ -8,11 +8,11 @@
 
 ## Abstract
 
-We study the propagation of arithmetic carries in binary multiplication and discover a spectral phase transition that converts rational arithmetic into a transcendental constant. Given two uniformly random K-bit integers X, Y with product P = XY written in D = 2K − 1 bits, define the *sector ratio* R(K) = σ₁₀(K)/σ₀₀(K), where σ_ac is the carry-weighted partition function restricted to pairs whose second-highest bits of X, Y are (a, c).
+We study the propagation of arithmetic carries in binary multiplication and discover a spectral phase transition that converts rational arithmetic into a transcendental constant. Given two uniformly random K-bit integers X, Y and restricting to the D-odd pairs for which the product P = XY is written in D = 2K − 1 bits, define the *sector ratio* R(K) = σ₁₀(K)/σ₀₀(K), where σ_ac is the carry-weighted partition function restricted to pairs whose second-highest bits of X, Y are (a, c).
 
 We prove:
 
-1. The Markov (independent-convolution) model gives R_Markov = +2/3, a rational constant independent of K (Theorem 2).
+1. The Markov (independent-convolution) model gives a baseline $R_{\mathrm{Markov}}(L) = S(\beta = 1, L)$ tending to $+2/3$ with explicit finite-size correction (Theorem 2).
 2. The alternating spectral sum over the Dirichlet bridge has the exact closed form S(β) = 2β/(1 + 2β), a Möbius transformation (Theorem 1).
 3. Setting S = −π yields the critical parameter A* = (3π + 2)/(2(π + 1)), placing the system at distance 1/(2(π + 1)) from the pole (Corollary 2).
 4. The spectral zeta function of the Markov carry bridge reproduces ζ(2s) at all even arguments of the Riemann zeta function, via Weyl asymptotics (Theorem 3).
@@ -20,9 +20,9 @@ We prove:
 
 We conjecture:
 
-6. The exact cascade sector ratio satisfies R(∞) = lim_{K→∞} R(K) = −π = −4 L(1, χ₄) (Conjecture 1). Exact enumeration up to K = 21 (1.1 × 10¹² digit pairs) confirms this to 4.0 significant digits by exponential Richardson extrapolation (§9.2; 4.4 digits using exact values only). The weight sin(nπ/2) in the spectral sum equals the Dirichlet character χ₄(n), which emerges as the effective spectral weight under resolvent universality [E].
+6. The exact cascade sector ratio satisfies R(∞) = lim_{K→∞} R(K) = −π = −4 L(1, χ₄) (Conjecture 1). Exact enumeration up to K = 21 (1.1 × 10¹² digit pairs) confirms this to 4.0 significant digits by exponential Richardson extrapolation (§9.2; 4.4 digits using exact values only). The weight sin(nπ/2) in the spectral sum equals the Dirichlet character χ₄(n), which emerges as the effective spectral weight under resolvent universality [E]. In the companion carry-Dirichlet program [L], the same stopping-time channel is realized as a canonical weighted first-return resolvent and reduces the remaining s = 1 closure to a scalar `χ₄ -> L(1,\chi_4)` constant together with preservation of the conditioned 1/2 rate.
 
-The system undergoes a spectral phase transition: the Markov model (subcritical) produces the rational +2/3; digit correlations push the carry bridge past a critical point into a supercritical regime where the transcendental −π emerges. Combined with ζ(2s) from the spectral zeta function and L(1, χ₄) from the sector ratio, the carry bridge produces both factors of the Dedekind zeta function ζ_{ℚ(i)}(s) = ζ(s) · L(s, χ₄) of the Gaussian integers.
+The system undergoes a spectral phase transition: the Markov model (subcritical) produces the rational +2/3; digit correlations push the carry bridge past a critical point into a supercritical regime where a transcendental value numerically consistent with −π is observed. Combined with ζ(2s) from the spectral zeta function and the conjectural L(1, χ₄) contribution from the sector ratio, the carry bridge suggests a connection to both factors of the Dedekind zeta function ζ_{ℚ(i)}(s) = ζ(s) · L(s, χ₄) of the Gaussian integers.
 
 ---
 
@@ -30,15 +30,59 @@ The system undergoes a spectral phase transition: the Markov model (subcritical)
 
 The appearance of π in number theory is usually traced to analytic methods: the residue calculus in the proof of the prime number theorem, the Fourier analysis underlying Dirichlet L-functions, or the Gaussian integral in the central limit theorem. In each case, the geometric content of π (circumference, area, rotation) enters through an analytical tool applied to a discrete problem.
 
-In this paper we exhibit a mechanism that produces π from *purely arithmetic operations* — binary multiplication and carry propagation — without invoking any geometric or analytic machinery except at the final step of evaluating a closed-form identity. The mechanism reveals a spectral phase transition: a rational quantity (+2/3) is converted into a transcendental one (−π) when digit correlations push the system past a critical point.
+In this paper we exhibit a mechanism that produces π from *purely arithmetic operations* — binary multiplication and carry propagation — without invoking any geometric or analytic machinery except at the final step of evaluating a closed-form identity. The mechanism reveals a spectral phase transition: a rational baseline asymptotic to $+2/3$ is converted into a transcendental one (−π) when digit correlations push the system past a critical point.
+
+### 1.1 A First Look: Sectors, Carries, and π
+
+Before the formal development, we illustrate the phenomenon with a concrete example.
+
+**The setup.** Take all 4-bit binary numbers: $X, Y \in \lbrace{}8, 9, \ldots, 15\rbrace{}$. Their products range from $8 \times 8 = 64$ to $15 \times 15 = 225$. Some products have 7 binary digits ($64 \leq P < 128$), others have 8 ($128 \leq P \leq 225$). We focus on the **7-bit products** — the "D-odd" pairs, where the product has exactly $D = 2K - 1 = 7$ digits. This is a natural boundary condition: the carry chain starts and ends at zero.
+
+**The sector partition.** Each 4-bit number has the form $1abc_2$. The second-highest bit $a$ splits the numbers into two groups: $\lbrace{}8, 9, 10, 11\rbrace{}$ (second bit = 0) and $\lbrace{}12, 13, 14, 15\rbrace{}$ (second bit = 1). The pair $(X, Y)$ falls into one of four **sectors** based on these bits:
+
+```
+         Y: second bit = 0     Y: second bit = 1
+         {8, 9, 10, 11}        {12, 13, 14, 15}
+        ┌─────────────────┬─────────────────┐
+X = 0   │  Sector (0,0)   │  Sector (0,1)   │
+{8–11}  │  16 pairs       │  16 pairs       │
+        │  ALL D-odd      │  8 of 16 D-odd  │
+        ├─────────────────┼─────────────────┤
+X = 1   │  Sector (1,0)   │  Sector (1,1)   │
+{12–15} │  8 of 16 D-odd  │  ███ 0 D-odd ███│
+        │                 │  all products   │
+        │                 │  have 8 bits!   │
+        └─────────────────┴─────────────────┘
+```
+
+A striking fact: **sector (1,1) has zero D-odd pairs** (Theorem 4). When both factors have a 1 in the second-highest position, the product always overflows to 8 bits: $12 \times 12 = 144 \geq 128$. This is a theorem, not a coincidence — it holds for all $K$.
+
+**The carry weight.** For each D-odd pair, we compute the carry chain (see [A] for the full spectral theory of carries). The *cascade valuation* scans the carry chain from the top and reads off a weight of $+1$, $0$, or $-1$ depending on the carry value at the stopping position (formally, $w_{\mathrm{casc}} = c_{M-1} - 1$). Summing these weights across all D-odd pairs in each sector gives the sector partition functions $\sigma_{00}$ and $\sigma_{10}$. Their ratio $R(K) = \sigma_{10}/\sigma_{00}$ is the **sector ratio**.
+
+**The punchline.** Computing $R(K)$ by exhaustive enumeration for increasing $K$:
+
+| $K$ | Pairs enumerated | $R(K)$ | $\lvert R(K) + \pi\rvert$ |
+|-----|-----------------|---------|---------------------------|
+| 7 | $4^6 = 4{,}096$ | $-0.09$ | $3.05$ |
+| 11 | $4^{10} \approx 10^6$ | $-1.55$ | $1.59$ |
+| 15 | $4^{14} \approx 2.7 \times 10^8$ | $-2.82$ | $0.32$ |
+| 19 | $4^{18} \approx 6.9 \times 10^{10}$ | $-3.110$ | $0.032$ |
+| 21 | $4^{20} \approx 1.1 \times 10^{12}$ | $-3.133$ | $0.008$ |
+| $\infty$ (extrapolated) | | $-3.1416\ldots$ | $< 10^{-3}$ |
+
+Numerically, the ratio appears to converge to $-\pi = -3.14159\ldots$, confirmed to 4.0 significant digits by Richardson extrapolation (§9.2). The number $\pi$ — the ratio of a circle's circumference to its diameter — thus appears to emerge from *counting carry patterns in binary multiplication*.
+
+The Markov model (independent carries) predicts a baseline tending to $R = +2/3$. The observed value points toward $-\pi$. The sign is wrong, the magnitude is wrong, and the answer is transcendental instead of rational. Digit correlations — the fact that adjacent carries share input bits — drive the system through a spectral phase transition (§5) from the rational Markov baseline to the transcendental limit.
+
+### 1.2 Overview of Results
 
 We also show that the Markov transfer operator for the carry bridge, viewed as a spectral zeta function, reproduces ζ(2s) at all even arguments — a manifestation of Weyl's law in the arithmetic setting. Combined with the conjectural L(1, χ₄) = π/4 from the sector ratio, this connects the carry bridge to the Dedekind zeta function of the Gaussian integers.
 
-**Scope and status.** Five theorems are proved unconditionally (Theorems 1–5, Theorem 6, Theorem 7). The central claim R(∞) = −π (Conjecture 1) is supported by 4.0-digit numerical evidence (exponential Richardson, §9.2) but remains open; under the Linear Mix Hypothesis of [E], it follows from the proved closed-form identity S(A) = 2(1−A)/(3−2A). This paper is therefore a contribution to experimental mathematics: it identifies the phenomenon, proves the structural framework, and isolates the single remaining spectral conjecture. The remaining proof targets are: (i) prove the scalar identity C = −4 in R(∞) = C · L(1, χ₄), and (ii) prove analytically that the conditioned D-odd chain preserves the dominant 1/2 spectral rate. The stopping-time framework extends to a full Dirichlet series in the complex variable s in [L], revealing L²(s, χ₄) structure.
+**Scope and status.** Seven theorems are proved unconditionally (Theorems 1–7). The central claim R(∞) = −π (Conjecture 1) is supported by 4.0-digit numerical evidence (exponential Richardson, §9.2) but remains open; under the Linear Mix Hypothesis of [E], it follows from the proved closed-form identity S(A) = 2(1−A)/(3−2A). This paper is therefore a contribution to experimental mathematics: it identifies the phenomenon, proves the structural framework, and isolates the remaining closure problem. The remaining proof targets are: (i) prove the scalar identity C = −4 in R(∞) = C · L(1, χ₄), and (ii) prove analytically that the conditioned D-odd chain preserves the dominant 1/2 spectral rate. The stopping-time framework extends to a full Dirichlet series in the complex variable s in [L], where the mixed channel is realized as a canonical weighted first-return resolvent and exhibits corrected-L² structure on Re(s) > 1; the corresponding carry-side object remains zero-free in the tested critical-strip box.
 
-### 1.1 Setting
+### 1.3 Setting
 
-Let X and Y be independent uniformly random integers in [2^{K−1}, 2^K) (K-bit integers with leading bit 1). Their product P = XY has D = 2K − 1 binary digits. The schoolbook multiplication algorithm computes
+Let X and Y be independent uniformly random integers in [2^{K−1}, 2^K) (K-bit integers with leading bit 1). On the D-odd subdomain studied here, their product P = XY has D = 2K − 1 binary digits. The schoolbook multiplication algorithm computes
 
     P = Σ_{j=0}^{D-1} p_j · 2^j
 
@@ -56,7 +100,7 @@ where $w(X,Y) = w_{\mathrm{casc}}(X,Y)$ is the cascade carry weight defined belo
 
 **Definition 2 (Sector ratio).** R(K) = σ₁₀(K)/σ₀₀(K). By symmetry, σ₁₀ = σ₀₁.  (Not to be confused with the carry correction factor $R(l,s)$ of [B], which measures the per-prime deviation from the Euler product.)
 
-### 1.2 Main results
+### 1.4 Main results
 
 **Theorem 1 (Spectral closed form).** For β ∈ (−1/2, +∞), define
 
@@ -78,9 +122,9 @@ a Möbius transformation with a zero at A = 1 and a pole at A = 3/2.
 - A = 1 (critical): S = 0
 - A = A*: S = −π, where A* = (3π + 2)/(2(π + 1)) = 3/2 − 1/(2(π+1)) ≈ 1.37927
 
-**Theorem 2 (Markov baseline).**  The independent-convolution (Markov) model gives R_Markov = +2/3, with finite-size correction
+**Theorem 2 (Markov baseline).**  The independent-convolution (Markov) model gives $R_{\mathrm{Markov}}(L) = S(\beta = 1, L) \to +2/3$, with finite-size correction (writing $S(\beta, L)$ as in Theorem 1 with $\beta = 1 - A$; the Markov case $A = 0$ corresponds to $\beta = 1$):
 
-    S(0, L) = 2/3 + 10 ζ(2)/(3 L²) + O(L⁻⁴)
+    S(β = 1, L) = 2/3 + 10 ζ(2)/(3 L²) + O(L⁻⁴)
 
 **Theorem 3 (Spectral zeta function).** Let F = ½I − T_bridge be the fluctuation operator of the Markov carry bridge of length L, with eigenvalues ε_n = sin²(nπ/(2(L+1))). Then for Re(s) > 1/2,
 
@@ -96,10 +140,10 @@ with convergence rate $O(L^{1-2\sigma})$ where $\sigma = \Re(s)$ (reducing to $O
 
 Supported by exact enumeration to K = 21 with Richardson extrapolation (Section 9). By the decomposition R = R₀ + ΔR [E], the conjecture reduces to proving that the cascade correction ΔR = Tr[(I−T)⁻¹·P_{c=0}] equals exactly −π − R₀ = +0.7896...
 
-### 1.3 Structure of the paper
+### 1.5 Structure of the paper
 
 - Section 2: Carry bridge and Dirichlet eigenfunctions
-- Section 3: Markov baseline (R = +2/3)
+- Section 3: Markov baseline ($R \to +2/3$)
 - Section 4: Proof of the closed form (Theorem 1)
 - Section 5: The spectral phase transition
 - Section 6: The Dirichlet character χ₄ and L(1, χ₄)
@@ -137,23 +181,23 @@ The precise relationship between R(K) and the spectral sum S(A, L) is subtle: [E
 
 ---
 
-## 3. The Markov Baseline: R = +2/3
+## 3. The Markov Baseline: $R \to +2/3$
 
 ### 3.1 Independent convolutions
 
 In the Markov model, convolutions at distinct positions are treated as independent random variables given the carry state. The sector perturbation modifies the convolution distribution at position K − 2 by conditioning on the second-highest bits (a, c) of the input.
 
-### 3.2 Proof of S(0, L) → 2/3
+### 3.2 Proof of the Markov Baseline
 
-With A = 0 (no correlation-induced shift), the spectral sum reduces to
+With $A = 0$ (no correlation-induced shift), the spectral sum reduces to
 
-    S(0, L) = Σ_{n odd} (-1)^{(n-1)/2} / (1 − (1/2)cos(nπ/L))
+    S(β = 1, L) = Σ_{n odd} (-1)^{(n-1)/2} / (1 − (1/2)cos(nπ/L))
 
-This is S(β = 1, L) in the notation of Theorem 1, giving S(β = 1) = 2·1/(1+2) = 2/3.
+This is exactly the Markov case $S(\beta = 1, L)$ in the notation of Theorem 1, giving $S(\beta = 1) = 2\cdot 1/(1+2) = 2/3$.
 
 **Proposition 1 (Finite-size correction).**
 
-    S(0, L) − 2/3 = 5π²/(9L²) + O(L⁻⁴) = 10 ζ(2)/(3L²) + O(L⁻⁴)
+    S(β = 1, L) − 2/3 = 5π²/(9L²) + O(L⁻⁴) = 10 ζ(2)/(3L²) + O(L⁻⁴)
 
 The correction coefficient 5π²/9 is derived analytically from the Fourier expansion (Section 4) and verified numerically to 6 significant digits.
 
@@ -391,7 +435,7 @@ where B_n are Bernoulli numbers. The carry chain's spectral decomposition mirror
 
 This connection is structural rather than a formal derivation: the carry chain is a nonlinear discrete dynamical system, not a trapezoidal sum. Nonetheless, the numerical evidence strongly supports the identification.
 
-**Theorem 6 (Cascade Rigidity).** For D-odd sector-(0,0) pairs with $c_2 \in \lbrace{}0,1\rbrace{}$:
+**Theorem 6 (Cascade Rigidity).** For D-odd sector-(0,0) pairs, define the depth-$j$ carry $c_j := \mathrm{carries}[D-j]$ (the carry at position $D - j$, i.e., depth $j$ from the MSB end).  For $c_2 \in \lbrace{}0,1\rbrace{}$:
 
 (i) $\text{carries}[D-1] = \text{carries}[D] = 0$.
 

@@ -10,13 +10,13 @@ Numerically, the sector-ratio trace of binary multiplication converges toward $-
 
 **Theorem 6 (Cascade Rigidity):** In sector (0,0), the cascade value is determined algebraically by the near-boundary carry profile: if $c_n \geq 1$ while $c_2 = \cdots = c_{n-1} = 0$, then $M = D-n$ and $\text{val} = c_{n+1} - 1$. This proves $B_3 = 0$ in the Bernoulli hierarchy and extends recursively to arbitrary depth.
 
-**Stopping-time decomposition (§8.2a):** Combining Theorem 6 with the unit leading carry, R(K) decomposes exactly as a sum over stopping depths τ. Both $P(\tau \mid \text{sector})$ and $E[\text{val} \mid \tau, \text{sector}]$ converge to K-independent universal constants. The sector asymmetry $\Delta(\tau)$ forms a stable sequence (~0.387, 0.351, 0.411, 0.315, 0.335). ~95% of R(K) concentrates in τ ≤ 7.
+**Stopping-time decomposition (§8.2a):** Combining Theorem 6 with the unit leading carry, R(K) decomposes exactly as a sum over stopping depths τ. Both $P(\tau \mid \text{sector})$ and $E[\text{val} \mid \tau, \text{sector}]$ converge to K-independent universal constants. The sector asymmetry $\Delta(\tau)$ forms a stable sequence (~0.387, 0.351, 0.411, 0.315, 0.335). ~95% of R(K) concentrates in τ ≤ 7. In the companion paper [L], this same stopping-time channel is promoted to a canonical weighted first-return resolvent object in the complex variable $s$.
 
 ## Status
 
 - **Proved:** structural framework, Theorems 1–7, exact stopping-time resolvent identities.
 - **Conditional:** closed-form `R = S(A)` under LMH.
-- **Open target:** scalar closure `C=-4` in `R(∞)=C·L(1,χ₄)` and analytic proof of dominant `1/2` rate preservation for the conditioned chain.
+- **Open target:** scalar closure `C=-4` in `R(∞)=C·L(1,χ₄)` and analytic proof of dominant `1/2` rate preservation for the conditioned chain. The current carry-side analytic continuation program in [L] reaches corrected-L² / Euler-factor structure on `Re(s)>1`, but no zero-transfer mechanism yet.
 
 Main paper (~20pp). The carry-Dirichlet channel extending the stopping-time framework to a function of s is developed in [L].
 

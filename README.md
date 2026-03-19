@@ -30,6 +30,8 @@ experiments/
   P1_03_stopping_time_decomposition.py           Stopping-time decomposition of R(K) (§8.2a)
   P1_05_doob_eigenvalues.py                      Doob h-transform eigenvalue analysis (§8.2b)
   P1_06_stopping_time_high_K.py                  High-K stopping-time from E45 data (§8.2a)
+  P1_07_richardson_extrapolation.py               Richardson extrapolation of R(K) → −π (§9.2)
+  P1_08_richardson_stability.py                   One-step Richardson check and positional stability (§9.5)
 ```
 
 Experiments P1_01–P1_03 verify Theorem 6, the Bernoulli hierarchy, and the stopping-time decomposition (§8.1–§8.2a). P1_05 tests — and falsifies — the LMH at the per-position eigenvalue level (§8.2b). Additional computational verification for Conjectures 1–2 and Theorems 1–3, 5 is in the companion repository `carry-arithmetic-E-trace-anomaly`, experiments E09–E30.
@@ -42,6 +44,8 @@ python experiments/P1_01_bernoulli_hierarchy.py   # B₃=0 confirmation, cascade
 python experiments/P1_02_cascade_rigidity.py       # Theorem 6 verification (K=7..13)
 python experiments/P1_03_stopping_time_decomposition.py  # Stopping-time decomposition (K=7..14)
 python experiments/P1_05_doob_eigenvalues.py       # Doob eigenvalues — LMH falsified (K=5..12)
+python experiments/P1_07_richardson_extrapolation.py # Richardson extrapolation R(K) → −π
+python experiments/P1_08_richardson_stability.py     # One-step Richardson, positional stability
 ```
 
 ## Dependencies
@@ -56,6 +60,9 @@ python experiments/P1_05_doob_eigenvalues.py       # Doob eigenvalues — LMH fa
 | [P2] | The Sector Ratio in Binary Multiplication | [`carry-arithmetic-P2-sector-ratio`](https://github.com/stefanoalimonti/carry-arithmetic-P2-sector-ratio) |
 | [G] | The Angular Uniqueness of Base 2 | [`carry-arithmetic-G-angular-uniqueness`](https://github.com/stefanoalimonti/carry-arithmetic-G-angular-uniqueness) |
 | [L] | The Carry–Dirichlet Bridge | [`carry-arithmetic-L-dirichlet-bridge`](https://github.com/stefanoalimonti/carry-arithmetic-L-dirichlet-bridge) |
+| [A] | Spectral Theory of Carries in Positional Multiplication | [`carry-arithmetic-A-spectral-theory`](https://github.com/stefanoalimonti/carry-arithmetic-A-spectral-theory) |
+| [B] | Carry Polynomials and the Euler Product | [`carry-arithmetic-B-zeta-approximation`](https://github.com/stefanoalimonti/carry-arithmetic-B-zeta-approximation) |
+| [F] | Exact Covariance Structure of Binary Carry Chains | [`carry-arithmetic-F-covariance-structure`](https://github.com/stefanoalimonti/carry-arithmetic-F-covariance-structure) |
 
 ### Citation
 

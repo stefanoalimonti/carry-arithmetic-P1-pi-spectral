@@ -49,6 +49,19 @@
 % Allow footnotes in longtable head/foot
 \IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
 \makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
@@ -201,20 +214,11 @@ bit} \(a\) divides the numbers into two groups:
 Since we have two numbers \(X\) and \(Y\), their second bits define four
 \textbf{sectors}:
 
-\begin{verbatim}
-            Y: low (8–11)       Y: high (12–15)
-           ┌────────────────┬────────────────┐
-X: low     │                │                │
-(8–11)     │  Sector (0,0)  │  Sector (0,1)  │
-           │  16 pairs      │  16 pairs      │
-           │  16 D-odd ✓    │  8 D-odd  ✓    │
-           ├────────────────┼────────────────┤
-X: high    │                │                │
-(12–15)    │  Sector (1,0)  │  Sector (1,1)  │
-           │  16 pairs      │  16 pairs      │
-           │  8 D-odd  ✓    │  0 D-odd  ✗    │
-           └────────────────┴────────────────┘
-\end{verbatim}
+\begin{figure}
+\centering
+\includegraphics{../figures/fig_sector_layout.png}
+\caption{Four sectors of K=4 binary multiplication}
+\end{figure}
 
 \textbf{A proven fact (Theorem 4):} Sector (1,1) has \emph{zero} D-odd pairs.
 When both numbers are in the high group, the product always overflows to 8 bits.
@@ -248,6 +252,17 @@ This is a purely combinatorial quantity: it counts carry patterns in binary
 multiplication, weighted by the cascade valuation. No geometry, no circles, no
 angles.
 
+The figure below shows every pair at \(K = 4\). Each circle is a D-odd pair
+coloured by its carry weight; grey crosses are sector (1,1), always D-even
+(Theorem 4). The asymmetry between the yellow sector (1,0) and the blue sector
+(0,0) is what drives \(R(K)\) toward \(-\pi\).
+
+\begin{figure}
+\centering
+\includegraphics{../figures/fig_sector_grid.png}
+\caption{Sector carry grid for K=4}
+\end{figure}
+
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \newpage
@@ -259,18 +274,11 @@ We computed \(R(K)\) for every value of \(K\) from 4 to 21 by exhaustive
 enumeration --- checking every single pair of \(K\)-bit numbers. At \(K = 21\),
 this means examining over \textbf{one trillion} pairs.
 
-\begin{verbatim}
-R(K)
- +2/3 ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─  ← Markov prediction (rational)
-  0   ┤
- -1   ┤     ·
- -2   ┤          ·
- -3   ┤               · · · · · ·  ← converging
-−π  ─ ┤─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ·  ← limit = −3.14159...
- -4   ┤
-      └──┬──┬──┬──┬──┬──┬──┬──┬──
-         7  9 11 13 15 17 19 21   K
-\end{verbatim}
+\begin{figure}
+\centering
+\includegraphics{../figures/fig_convergence.png}
+\caption{R(K) convergence to −π}
+\end{figure}
 
 \begin{longtable}[]{@{}llll@{}}
 \toprule\noalign{}
@@ -288,7 +296,10 @@ R(K)
 \end{longtable}
 
 After Richardson extrapolation (a standard acceleration technique), the limit
-matches \(-\pi = -3.14159\ldots\) to \textbf{4 significant digits}.
+matches \(-\pi = -3.14159\ldots\) to \textbf{4 significant digits}. Even a
+single Richardson step using only two consecutive data points --- \(K = 20\) and
+\(K = 21\) --- gives \(2R(21) - R(20) = -3.14194\), a 3.5-digit match requiring
+no fitting.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -325,6 +336,12 @@ to \(-\pi\) gives \(A^* = (3\pi + 2)/(2(\pi + 1)) \approx 1.379\). If the
 physical sector ratio is governed by the LMH, this is the corresponding critical
 value.
 
+\begin{figure}
+\centering
+\includegraphics{../figures/fig_markov_gap.png}
+\caption{Markov gap: prediction vs observed}
+\end{figure}
+
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \newpage
@@ -358,6 +375,8 @@ Cascade stopping depths in sector (0,0) obey structural rigidity &
 \textbf{Proved} (Theorem 6) \\
 The first nonzero carry is exactly 1 & \textbf{Proved} (Theorem 7) \\
 \(R(\infty) = -\pi\) & \textbf{Conjectured} (4.0-digit numerical evidence) \\
+The positions of carry-amplitude minima do not shift from \(K = 21\) to
+\(K = 999\) & \textbf{Confirmed} (§9.5) \\
 \end{longtable}
 
 The conjecture reduces to proving two things: (i) a scalar constant equals

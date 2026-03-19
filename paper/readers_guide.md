@@ -81,20 +81,7 @@ Each 4-bit number has the form $1abc$ in binary. The **second-highest bit** $a$ 
 
 Since we have two numbers $X$ and $Y$, their second bits define four **sectors**:
 
-```
-            Y: low (8–11)       Y: high (12–15)
-           ┌────────────────┬────────────────┐
-X: low     │                │                │
-(8–11)     │  Sector (0,0)  │  Sector (0,1)  │
-           │  16 pairs      │  16 pairs      │
-           │  16 D-odd ✓    │  8 D-odd  ✓    │
-           ├────────────────┼────────────────┤
-X: high    │                │                │
-(12–15)    │  Sector (1,0)  │  Sector (1,1)  │
-           │  16 pairs      │  16 pairs      │
-           │  8 D-odd  ✓    │  0 D-odd  ✗    │
-           └────────────────┴────────────────┘
-```
+![Four sectors of K=4 binary multiplication](../figures/fig_sector_layout.png)
 
 **A proven fact (Theorem 4):** Sector (1,1) has *zero* D-odd pairs. When both numbers are in the high group, the product always overflows to 8 bits. This is not a coincidence — it holds for all $K$, because if $X \geq 3 \cdot 2^{K-2}$ and $Y \geq 3 \cdot 2^{K-2}$ (both second bits are 1), then $XY \geq 9 \cdot 2^{2K-4} > 2^{2K-1}$, so the product always has $2K$ bits.
 
@@ -114,24 +101,17 @@ $$R(K) = \frac{\sigma_{10}}{\sigma_{00}}$$
 
 This is a purely combinatorial quantity: it counts carry patterns in binary multiplication, weighted by the cascade valuation. No geometry, no circles, no angles.
 
+The figure below shows every pair at $K = 4$. Each circle is a D-odd pair coloured by its carry weight; grey crosses are sector (1,1), always D-even (Theorem 4). The asymmetry between the yellow sector (1,0) and the blue sector (0,0) is what drives $R(K)$ toward $-\pi$.
+
+![Sector carry grid for K=4](../figures/fig_sector_grid.png)
+
 ---
 
 ## 6. The Punchline: R(K) Converges to −π
 
 We computed $R(K)$ for every value of $K$ from 4 to 21 by exhaustive enumeration — checking every single pair of $K$-bit numbers. At $K = 21$, this means examining over **one trillion** pairs.
 
-```
-R(K)
- +2/3 ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─  ← Markov prediction (rational)
-  0   ┤
- -1   ┤     ·
- -2   ┤          ·
- -3   ┤               · · · · · ·  ← converging
-−π  ─ ┤─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ·  ← limit = −3.14159...
- -4   ┤
-      └──┬──┬──┬──┬──┬──┬──┬──┬──
-         7  9 11 13 15 17 19 21   K
-```
+![R(K) convergence to −π](../figures/fig_convergence.png)
 
 | $K$ | Pairs checked | $R(K)$ | Gap from $-\pi$ |
 |-----|--------------|---------|-----------------|
@@ -142,7 +122,7 @@ R(K)
 | 21 | ~1.1 trillion | $-3.133$ | 0.008 |
 | $\infty$ (extrapolated) | | $-3.1416\ldots$ | $< 0.001$ |
 
-After Richardson extrapolation (a standard acceleration technique), the limit matches $-\pi = -3.14159\ldots$ to **4 significant digits**.
+After Richardson extrapolation (a standard acceleration technique), the limit matches $-\pi = -3.14159\ldots$ to **4 significant digits**. Even a single Richardson step using only two consecutive data points — $K = 20$ and $K = 21$ — gives $2R(21) - R(20) = -3.14194$, a 3.5-digit match requiring no fitting.
 
 ---
 
@@ -160,6 +140,8 @@ $$S(A) = \frac{2(1-A)}{3-2A}$$
 
 where $A$ measures the strength of digit correlations. Matching this model sum to $-\pi$ gives $A^* = (3\pi + 2)/(2(\pi + 1)) \approx 1.379$. If the physical sector ratio is governed by the LMH, this is the corresponding critical value.
 
+![Markov gap: prediction vs observed](../figures/fig_markov_gap.png)
+
 ---
 
 ## 8. What Is Proved and What Is Conjectured
@@ -174,6 +156,7 @@ where $A$ measures the strength of digit correlations. Matching this model sum t
 | Cascade stopping depths in sector (0,0) obey structural rigidity | **Proved** (Theorem 6) |
 | The first nonzero carry is exactly 1 | **Proved** (Theorem 7) |
 | $R(\infty) = -\pi$ | **Conjectured** (4.0-digit numerical evidence) |
+| The positions of carry-amplitude minima do not shift from $K = 21$ to $K = 999$ | **Confirmed** (§9.5) |
 
 The conjecture reduces to proving two things: (i) a scalar constant equals $-4$, and (ii) the spectral gap $1/2$ is preserved under the D-odd boundary condition. The companion paper [L] now realizes the same stopping-time channel as a canonical weighted first-return resolvent and shows that the current carry-side analytic object captures Euler/local-factor structure but does not yet transfer the $L$-function zeros. The algebraic framework is complete; the remaining step is analytical.
 

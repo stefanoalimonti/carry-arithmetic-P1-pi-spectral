@@ -126,7 +126,7 @@ a Möbius transformation with a zero at A = 1 and a pole at A = 3/2.
 
     S(β = 1, L) = 2/3 + 10 ζ(2)/(3 L²) + O(L⁻⁴)
 
-**Theorem 3 (Spectral zeta function).** Let F = ½I − T_bridge be the fluctuation operator of the Markov carry bridge of length L, with eigenvalues ε_n = sin²(nπ/(2(L+1))). Then for Re(s) > 1/2,
+**Theorem 3 (Spectral zeta function).** Let F = ½I − T_bridge be the fluctuation operator of the Markov carry bridge of length L, with eigenvalues ε_n = sin²(nπ/(2L)). Then for Re(s) > 1/2,
 
     ζ_F(s) / (2L/π)^{2s}  →  ζ(2s)    as L → ∞
 
@@ -331,11 +331,11 @@ If both α = 1/6 (Conjecture 2, §8) and R = −π (Conjecture 1) can be establi
 
 **Definition 3 (Fluctuation operator).** F = ½I − T_bridge, where T_bridge is the Markov carry bridge transfer matrix. The eigenvalues of F are
 
-    ε_n = 1/2 − λ_n = sin²(nπ/(2(L+1))),    n = 1, …, L−1
+    ε_n = 1/2 − λ_n = sin²(nπ/(2L)),    n = 1, …, L−1
 
 **Definition 4 (Spectral zeta function).**
 
-    ζ_F(s) = Σ_{n=1}^{L-1} ε_n^{-s} = Σ_{n=1}^{L-1} sin^{-2s}(nπ/(2(L+1)))
+    ζ_F(s) = Σ_{n=1}^{L-1} ε_n^{-s} = Σ_{n=1}^{L-1} sin^{-2s}(nπ/(2L))
 
 ### 7.2 Proof of Theorem 3
 
@@ -467,7 +467,7 @@ where $\tau = D - M$ is the depth of the first nonzero carry from the MSB. The C
 
 **Universality.** Exact enumeration confirms that both $P(\tau \mid ab)$ and $E[\text{val} \mid \tau, ab]$ converge to $K$-independent constants.
 
-**Table 1.** Stopping-time decomposition constants at $K = 21$ (from E45 exact enumeration, $3.4 \times 10^{11}$ D-odd pairs in the $X \leq Y$ half-plane); cross-K stability from $K = 19$ to $K = 21$ confirms convergence to 5–6 significant digits.
+**Table 1.** Stopping-time decomposition constants at $K = 21$ (from the K = 21 exact enumeration of [E], $3.4 \times 10^{11}$ D-odd pairs in the $X \leq Y$ half-plane); cross-K stability from $K = 19$ to $K = 21$ confirms convergence to 5–6 significant digits.
 
 | $\tau$ | $P(\tau\mid 00)$ | $P(\tau\mid 10)$ | $E[v\mid\tau,00]$ | $E[v\mid\tau,10]$ | $\Delta(\tau)$ |
 |--------|----------------:|----------------:|-----------------:|-----------------:|-------------:|
@@ -480,13 +480,13 @@ where $\tau = D - M$ is the depth of the first nonzero carry from the MSB. The C
 | 8 | 0.01862 | 0.02313 | +0.04186 | +0.33033 | +0.28848 |
 | 9 | 0.01169 | 0.01231 | +0.01742 | +0.33307 | +0.31565 |
 
-The sector asymmetry $\Delta(\tau) = E[v\mid\tau,10] - E[v\mid\tau,00]$ is stable to $< 0.00001$ across $K = 19$–$21$ for $\tau \leq 5$, confirming genuine universality. Richardson extrapolation (assuming convergence rate $\rho = 1/2$) yields 7-digit estimates of the limiting constants.
+The sector asymmetry $\Delta(\tau) = E[v\mid\tau,10] - E[v\mid\tau,00]$ is stable to $< 0.00001$ across $K = 19$–$21$ for $\tau \leq 5$, confirming genuine universality. Richardson extrapolation (assuming convergence rate $\rho = 1/2$) yields 7-digit estimates of the limiting constants (experiment P1\_06).
 
-**Identification status.** PSLQ searches against $\lbrace{}1, \pi, \ln 2, \ln 3\rbrace{}$ on the Richardson-extrapolated limits produce candidate relations with residuals in the range $10^{-6}$–$10^{-7}$ but no confident closed forms. The precision is sufficient to confirm universality but not to prove algebraic identities. Extending the stopping-time analysis to $K \geq 24$ (computationally feasible with the E45 C implementation) would provide the 10+ digits needed for reliable PSLQ identification.
+**Identification status.** PSLQ searches against $\lbrace{}1, \pi, \ln 2, \ln 3\rbrace{}$ on the Richardson-extrapolated limits produce candidate relations with residuals in the range $10^{-6}$–$10^{-7}$ but no confident closed forms. The precision is sufficient to confirm universality but not to prove algebraic identities. Extending the stopping-time analysis to $K \geq 24$ (computationally feasible with the C implementation of [E]) would provide the 10+ digits needed for reliable PSLQ identification.
 
 ### 8.2b Failure of the per-position spectral limit
 
-A natural approach to the sector ratio is to analyze the per-position carry transition matrices $T(d)$ directly.  Under D-odd conditioning, the carry chain at each position $d$ induces a stochastic matrix on carry states $\lbrace{}0, 1, 2, \ldots\rbrace{}$.  In the Markov (independent-convolution) model, the bulk eigenvalue is $\lambda_2 = 1/2$ at every position; the Linear Mix Hypothesis [E] would predict $\lambda_2 = (1-A^{\ast})/2 + A^{\ast}/2 \approx 0.69$.
+A natural approach to the sector ratio is to analyze the per-position carry transition matrices $T(d)$ directly.  Under D-odd conditioning, the carry chain at each position $d$ induces a stochastic matrix on carry states $\lbrace{}0, 1, 2, \ldots\rbrace{}$.  In the Markov (independent-convolution) model, the bulk eigenvalue is $\lambda_2 = 1/2$ at every position; the Linear Mix Hypothesis [E] would predict $\lambda_2 = A^{\ast}/2 \approx 0.69$.
 
 Empirical computation of the bulk-averaged transition matrix for $K = 5$–$12$ (experiment P1\_05) reveals a qualitatively different picture:
 
@@ -599,7 +599,9 @@ The Neville–Aitken Richardson table with step-size variable h = ρ^K eliminate
 
     R_extrap = −3.1419… (4.0 significant digits)
 
-using exact R(K) for K ≤ 13 and K ≥ 19, with E44 approximations for K = 14–18. Using only exact values (K ≤ 13, K ≥ 19) the estimate improves to 4.4 significant digits. Leave-one-out cross-validation confirms stability: removing any single K ∈ {7, …, 17} changes the estimate by less than 10⁻⁴.
+using exact R(K) for K ≤ 13 and K ≥ 19, with K = 14–18 approximations from the high-precision profiles of [E]. Using only exact values (K ≤ 13, K ≥ 19) the estimate improves to 4.4 significant digits. Leave-one-out cross-validation confirms stability: removing any single K ∈ {7, …, 17} changes the estimate by less than 10⁻⁴.
+
+*Remark (one-step check).* The single Richardson step using only K = 20 and K = 21 gives $2R(21) - R(20) = -3.14194$, a gap of $3.5 \times 10^{-4}$ from $-\pi$ (3.5 significant digits). This one-step estimate is consistent with the Neville–Aitken result, confirming that the full table is not needed to establish 3+ digit precision.
 
 ### 9.3 Convergence rate
 
@@ -614,6 +616,12 @@ for K ≥ 11. The consecutive gap ratio g(K)/g(K−1) forms a monotone sequence 
 ### 9.4 Verification of the closed form
 
 Theorem 1 is verified numerically at 50-digit precision using arbitrary-precision arithmetic. The algebraic identity 4r/(γ(1−r²)) = 2β/(1+2β) holds to full precision for all tested values of β. The formula S(β*, L) → −π is confirmed at L = 1000 with |S + π| < 4 × 10⁻⁵, consistent with the O(1/L²) rate.
+
+### 9.5 Topological stability of minimum positions
+
+The K → ∞ limit is not only well-defined for R(K) as a scalar but also for the positional structure of the carry object on the critical line. Comparing the mixed channel $|\mu_{\chi_4}(1/2 + it)|$ at K = 21 and K = 999 (Richardson proxy) on a grid with spacing dt = 0.05, all 15 tested local minima have positional shift = 0.000: no minimum moves by a single grid point under the K = 21 → 999 extrapolation. The *values* of the minima are approximately flat across this range (§5.3 of [L]), and now the *positions* are confirmed stable to within the grid resolution.
+
+This stability result means the zero-tracking behavior documented in §5.3 of [L] is not an artifact of the truncation at K = 21 but is already present in the K → ∞ limit. It provides a structural answer to the natural objection that large-K behavior might shift the positions of the carry-amplitude minima relative to the L-function zeros.
 
 ---
 
@@ -734,7 +742,7 @@ Beyond $d_0 = 15$, catastrophic cancellation exceeds float64 precision. Extended
 
 ## 11. Open Problems
 
-1. Prove $\sigma_{10}/\sigma_{00} = -\pi$ analytically. The decomposition $R = R_0 + \Delta R$ (where $R_0 = -3.9312\ldots$ involves only $\ln 2$ and $\ln 3$, and $\Delta R = +0.7896\ldots$ carries the entire transcendental content) reduces the problem to showing that the cascade correction $\Delta R = |R_0| - \pi$. Six equivalent formulations are catalogued in §10.5; the depth series $\sum_{d=1}^\infty \sigma(d)$ converges to 4.36 significant digits at $d_{\max} = 15$. The most promising analytical path is the **stopping-time series** (§8.2a): derive $P(\tau \mid ab)$ and $E[\text{val} \mid \tau, ab]$ analytically from the carry chain structure, then sum $R = \sum_\tau [n_{10}(\tau) \cdot E[\text{val} \mid \tau, 10] + \cdots]$. The sector asymmetry $\Delta(\tau) = E[v \mid \tau, 10] - E[v \mid \tau, 00]$, which converges to $K$-independent constants (Table 1, §8.2a), is the core quantity: it encodes the entire transcendental content of R. The per-position spectral approach (Doob h-transform of local transition matrices) is ruled out: §8.2b shows that the per-position eigenvalues grow with $K$ instead of stabilizing, so the LMH must operate at the global resolvent level, not locally. Current status from the Step3 bridge: the `χ₄ -> L(1,χ₄)` part is reduced to a scalar closure `R(∞)=C·L(1,χ₄)` with data-constrained `C∈[-4.0032,-3.9896]`, and the dominant decay rate is reduced to proving the analytic `1/2` bound for the conditioned chain. See [E, §9] for the updated closure map.
+1. Prove $\sigma_{10}/\sigma_{00} = -\pi$ analytically. The decomposition $R = R_0 + \Delta R$ (where $R_0 = -3.9312\ldots$ involves only $\ln 2$ and $\ln 3$, and $\Delta R = +0.7896\ldots$ carries the entire transcendental content) reduces the problem to showing that the cascade correction $\Delta R = |R_0| - \pi$. Six equivalent formulations are catalogued in §10.5; the depth series $\sum_{d=1}^\infty \sigma(d)$ converges to 4.36 significant digits at $d_{\max} = 15$. The most promising analytical path is the **stopping-time series** (§8.2a): derive $P(\tau \mid ab)$ and $E[\text{val} \mid \tau, ab]$ analytically from the carry chain structure, then sum $R = \sum_\tau [n_{10}(\tau) \cdot E[\text{val} \mid \tau, 10] + \cdots]$. The sector asymmetry $\Delta(\tau) = E[v \mid \tau, 10] - E[v \mid \tau, 00]$, which converges to $K$-independent constants (Table 1, §8.2a), is the core quantity: it encodes the entire transcendental content of R. The per-position spectral approach (Doob h-transform of local transition matrices) is ruled out: §8.2b shows that the per-position eigenvalues grow with $K$ instead of stabilizing, so the LMH must operate at the global resolvent level, not locally. The companion analysis of [E, §9] reduces the remaining closure to two explicit points: a scalar $\chi_4 \to L(1,\chi_4)$ constant (data-constrained to $C \in [-4.0032, -3.9896]$) and an analytic proof of the dominant $1/2$ decay rate under D-odd conditioning. *Computational status.* Direct enumeration reaches K = 21. The single Richardson step $2R(21) - R(20) = -3.14194$ (§9.2, experiment P1\_08) confirms 3.5 significant digits; the full Neville–Aitken table (§9.2, experiment P1\_07) yields 4.0 digits. The K = 999 carry ensemble provides independent spectral confirmation: the $\chi_4$-weighted minima track the L-zeros at K = 999 to the same positional accuracy as at K = 21 (§9.5, experiment P1\_08; [L, §5.5]). The computational problem is resolved to 4+ digits; the analytical proof remains open.
 
 2. **Base universality.** For base b ≥ 3, the Markov sum S_b(0) = b²/(b²−1). Is the exact sector ratio R_b rational for all b ≥ 3? Exact enumeration for base 3 and base 5 would test this. The conjecture R₅ = 5/4 has preliminary numerical support.
 
@@ -772,3 +780,5 @@ Beyond $d_0 = 15$, catastrophic cancellation exceeds float64 precision. Extended
 20. [A] Companion paper: *Spectral theory of carries in positional multiplication*. (Foundation: the $m$-bit Equidistribution Lemma extending Diaconis–Fulman to the transfer operator.). doi:10.5281/zenodo.18895593
 21. [F] Companion paper: *Exact covariance structure of binary carry chains*. (Carry expectation $E[c_j] = (j-1)/4$, off-diagonal covariance $\text{Cov}(c_j, g_i h_{j-i}) = 1/8$.). doi:10.5281/zenodo.18895607
 22. [B] Companion paper: "Carry Polynomials and the Euler Product: An Approximation Framework," this series. doi:10.5281/zenodo.18895597
+
+23. [L] Companion paper: "The Carry–Dirichlet Bridge: Stopping-Time Series and L²(s,χ₄)," this series. doi:10.5281/zenodo.18895609

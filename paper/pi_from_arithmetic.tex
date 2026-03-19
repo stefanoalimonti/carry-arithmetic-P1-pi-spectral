@@ -362,7 +362,7 @@ S(β = 1, L) = 2/3 + 10 ζ(2)/(3 L²) + O(L⁻⁴)
 
 \textbf{Theorem 3 (Spectral zeta function).} Let F = ½I − T\_bridge be the
 fluctuation operator of the Markov carry bridge of length L, with eigenvalues
-ε\_n = sin²(nπ/(2(L+1))). Then for Re(s) \textgreater{} 1/2,
+ε\_n = sin²(nπ/(2L)). Then for Re(s) \textgreater{} 1/2,
 
 \begin{verbatim}
 ζ_F(s) / (2L/π)^{2s}  →  ζ(2s)    as L → ∞
@@ -726,13 +726,13 @@ currently unproved conjectures.
 T\_bridge is the Markov carry bridge transfer matrix. The eigenvalues of F are
 
 \begin{verbatim}
-ε_n = 1/2 − λ_n = sin²(nπ/(2(L+1))),    n = 1, …, L−1
+ε_n = 1/2 − λ_n = sin²(nπ/(2L)),    n = 1, …, L−1
 \end{verbatim}
 
 \textbf{Definition 4 (Spectral zeta function).}
 
 \begin{verbatim}
-ζ_F(s) = Σ_{n=1}^{L-1} ε_n^{-s} = Σ_{n=1}^{L-1} sin^{-2s}(nπ/(2(L+1)))
+ζ_F(s) = Σ_{n=1}^{L-1} ε_n^{-s} = Σ_{n=1}^{L-1} sin^{-2s}(nπ/(2L))
 \end{verbatim}
 
 \subsubsection{7.2 Proof of Theorem 3}\label{proof-of-theorem-3}
@@ -984,10 +984,10 @@ val \(= c_{\tau+1} - 1\) where \(c_{\tau+1} = \text{carries}[D-\tau-1]\).
 \textbf{Universality.} Exact enumeration confirms that both \(P(\tau \mid ab)\)
 and \(E[\text{val} \mid \tau, ab]\) converge to \(K\)-independent constants.
 
-\textbf{Table 1.} Stopping-time decomposition constants at \(K = 21\) (from E45
-exact enumeration, \(3.4 \times 10^{11}\) D-odd pairs in the \(X \leq Y\)
-half-plane); cross-K stability from \(K = 19\) to \(K = 21\) confirms
-convergence to 5--6 significant digits.
+\textbf{Table 1.} Stopping-time decomposition constants at \(K = 21\) (from the
+K = 21 exact enumeration of {[}E{]}, \(3.4 \times 10^{11}\) D-odd pairs in the
+\(X \leq Y\) half-plane); cross-K stability from \(K = 19\) to \(K = 21\)
+confirms convergence to 5--6 significant digits.
 
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.0870}}
@@ -1027,16 +1027,16 @@ convergence to 5--6 significant digits.
 The sector asymmetry \(\Delta(\tau) = E[v\mid\tau,10] - E[v\mid\tau,00]\) is
 stable to \(< 0.00001\) across \(K = 19\)--\(21\) for \(\tau \leq 5\),
 confirming genuine universality. Richardson extrapolation (assuming convergence
-rate \(\rho = 1/2\)) yields 7-digit estimates of the limiting constants.
+rate \(\rho = 1/2\)) yields 7-digit estimates of the limiting constants
+(experiment P1\_06).
 
 \textbf{Identification status.} PSLQ searches against
 \(\lbrace{}1, \pi, \ln 2, \ln 3\rbrace{}\) on the Richardson-extrapolated limits
 produce candidate relations with residuals in the range \(10^{-6}\)--\(10^{-7}\)
 but no confident closed forms. The precision is sufficient to confirm
 universality but not to prove algebraic identities. Extending the stopping-time
-analysis to \(K \geq 24\) (computationally feasible with the E45 C
-implementation) would provide the 10+ digits needed for reliable PSLQ
-identification.
+analysis to \(K \geq 24\) (computationally feasible with the C implementation of
+{[}E{]}) would provide the 10+ digits needed for reliable PSLQ identification.
 
 \subsubsection{8.2b Failure of the per-position spectral
 limit}\label{b-failure-of-the-per-position-spectral-limit}
@@ -1046,8 +1046,7 @@ transition matrices \(T(d)\) directly. Under D-odd conditioning, the carry chain
 at each position \(d\) induces a stochastic matrix on carry states
 \(\lbrace{}0, 1, 2, \ldots\rbrace{}\). In the Markov (independent-convolution)
 model, the bulk eigenvalue is \(\lambda_2 = 1/2\) at every position; the Linear
-Mix Hypothesis {[}E{]} would predict
-\(\lambda_2 = (1-A^{\ast})/2 + A^{\ast}/2 \approx 0.69\).
+Mix Hypothesis {[}E{]} would predict \(\lambda_2 = A^{\ast}/2 \approx 0.69\).
 
 Empirical computation of the bulk-averaged transition matrix for
 \(K = 5\)--\(12\) (experiment P1\_05) reveals a qualitatively different picture:
@@ -1262,10 +1261,17 @@ deferred approach to the limit {[}9{]} to the sequence R(K) for K = 7, 9, 11,
 R_extrap = −3.1419… (4.0 significant digits)
 \end{verbatim}
 
-using exact R(K) for K ≤ 13 and K ≥ 19, with E44 approximations for K = 14--18.
-Using only exact values (K ≤ 13, K ≥ 19) the estimate improves to 4.4
-significant digits. Leave-one-out cross-validation confirms stability: removing
-any single K ∈ \{7, \ldots, 17\} changes the estimate by less than 10⁻⁴.
+using exact R(K) for K ≤ 13 and K ≥ 19, with K = 14--18 approximations from the
+high-precision profiles of {[}E{]}. Using only exact values (K ≤ 13, K ≥ 19) the
+estimate improves to 4.4 significant digits. Leave-one-out cross-validation
+confirms stability: removing any single K ∈ \{7, \ldots, 17\} changes the
+estimate by less than 10⁻⁴.
+
+\emph{Remark (one-step check).} The single Richardson step using only K = 20 and
+K = 21 gives \(2R(21) - R(20) = -3.14194\), a gap of \(3.5 \times 10^{-4}\) from
+\(-\pi\) (3.5 significant digits). This one-step estimate is consistent with the
+Neville--Aitken result, confirming that the full table is not needed to
+establish 3+ digit precision.
 
 \subsubsection{9.3 Convergence rate}\label{convergence-rate}
 
@@ -1295,6 +1301,24 @@ arbitrary-precision arithmetic. The algebraic identity 4r/(γ(1−r²)) = 2β/(1
 holds to full precision for all tested values of β. The formula S(β*, L) → −π is
 confirmed at L = 1000 with \textbar S + π\textbar{} \textless{} 4 × 10⁻⁵,
 consistent with the O(1/L²) rate.
+
+\subsubsection{9.5 Topological stability of minimum
+positions}\label{topological-stability-of-minimum-positions}
+
+The K → ∞ limit is not only well-defined for R(K) as a scalar but also for the
+positional structure of the carry object on the critical line. Comparing the
+mixed channel \(|\mu_{\chi_4}(1/2 + it)|\) at K = 21 and K = 999 (Richardson
+proxy) on a grid with spacing dt = 0.05, all 15 tested local minima have
+positional shift = 0.000: no minimum moves by a single grid point under the K =
+21 → 999 extrapolation. The \emph{values} of the minima are approximately flat
+across this range (§5.3 of {[}L{]}), and now the \emph{positions} are confirmed
+stable to within the grid resolution.
+
+This stability result means the zero-tracking behavior documented in §5.3 of
+{[}L{]} is not an artifact of the truncation at K = 21 but is already present in
+the K → ∞ limit. It provides a structural answer to the natural objection that
+large-K behavior might shift the positions of the carry-amplitude minima
+relative to the L-function zeros.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -1552,12 +1576,19 @@ conjecture.
   the entire transcendental content of R. The per-position spectral approach
   (Doob h-transform of local transition matrices) is ruled out: §8.2b shows that
   the per-position eigenvalues grow with \(K\) instead of stabilizing, so the
-  LMH must operate at the global resolvent level, not locally. Current status
-  from the Step3 bridge: the \texttt{χ₄\ -\textgreater{}\ L(1,χ₄)} part is
-  reduced to a scalar closure \texttt{R(∞)=C·L(1,χ₄)} with data-constrained
-  \texttt{C∈{[}-4.0032,-3.9896{]}}, and the dominant decay rate is reduced to
-  proving the analytic \texttt{1/2} bound for the conditioned chain. See {[}E,
-  §9{]} for the updated closure map.
+  LMH must operate at the global resolvent level, not locally. The companion
+  analysis of {[}E, §9{]} reduces the remaining closure to two explicit points:
+  a scalar \(\chi_4 \to L(1,\chi_4)\) constant (data-constrained to
+  \(C \in [-4.0032, -3.9896]\)) and an analytic proof of the dominant \(1/2\)
+  decay rate under D-odd conditioning. \emph{Computational status.} Direct
+  enumeration reaches K = 21. The single Richardson step
+  \(2R(21) - R(20) = -3.14194\) (§9.2, experiment P1\_08) confirms 3.5
+  significant digits; the full Neville--Aitken table (§9.2, experiment P1\_07)
+  yields 4.0 digits. The K = 999 carry ensemble provides independent spectral
+  confirmation: the \(\chi_4\)-weighted minima track the L-zeros at K = 999 to
+  the same positional accuracy as at K = 21 (§9.5, experiment P1\_08; {[}L,
+  §5.5{]}). The computational problem is resolved to 4+ digits; the analytical
+  proof remains open.
 \item
   \textbf{Base universality.} For base b ≥ 3, the Markov sum S\_b(0) =
   b²/(b²−1). Is the exact sector ratio R\_b rational for all b ≥ 3? Exact
@@ -1597,7 +1628,6 @@ conjecture.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
-\tightlist
 \item
   P. Diaconis and J. Fulman, \emph{Carries, shuffling, and symmetric functions},
   Adv. Appl. Math. \textbf{43} (2009), 176--196.
@@ -1670,6 +1700,9 @@ conjecture.
 \item
   {[}B{]} Companion paper: ``Carry Polynomials and the Euler Product: An
   Approximation Framework,'' this series. doi:10.5281/zenodo.18895597
+\item
+  {[}L{]} Companion paper: ``The Carry--Dirichlet Bridge: Stopping-Time Series
+  and L²(s,χ₄),'' this series. doi:10.5281/zenodo.18895609
 \end{enumerate}
 
 \end{document}
